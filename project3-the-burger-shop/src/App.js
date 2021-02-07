@@ -1,13 +1,25 @@
 import React from 'react'
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Carousel from 'react-bootstrap/Carousel';
+import Navbar from 'react-bootstrap/Navbar';
 
 function App() {
   return (
     <React.Fragment>
+      <Navbar bg="dark">
+       <Navbar.Brand href="#home">
+         <img
+           src="./images/burger_shop_logo.png"
+           width="120"
+           height="100"
+           className="d-inline-block align-top"
+           alt="React Bootstrap logo"
+         />
+       </Navbar.Brand>
+      </Navbar>
       <Carousel>
         <Carousel.Item interval={2000}>
          <img
