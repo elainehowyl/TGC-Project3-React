@@ -9,8 +9,9 @@ import {
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import HomePage from './pages/HomePage'
-import UserAddress from './pages/UserAddress'
+import HomePage from './pages/HomePage';
+import UserAddress from './pages/UserAddress';
+import UserRegister from './pages/UserRegister'
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
               </Route>
               <Route exact path="/testing">
                 <UserAddress/>
+              </Route>
+              <Route exact path="/register">
+                  <UserRegister/>
               </Route>
           </Switch>
       </Router>

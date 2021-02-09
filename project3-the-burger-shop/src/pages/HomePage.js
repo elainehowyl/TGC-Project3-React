@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios'
 
 import {
-    useHistory
+    useHistory,
 } from "react-router-dom"
 
 import Carousel from 'react-bootstrap/Carousel';
@@ -14,10 +15,29 @@ import Button from 'react-bootstrap/Button';
 
 export default function HomePage(){
 
+    const [form, setForm] = useState({
+        'email': "",
+        'password': ""
+    })
+
     const history = useHistory();
+
+    function updateFormField(event){
+        setForm({
+            ...form,
+            [event.target.name] : event.target.value 
+        })
+    }
 
     function submitForm() {
         history.push('/testing')
+    }
+
+    function submitLogin(){
+        axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/login', {
+            'email': form.email,
+            'password': form.password
+        })
     }
 
     return (
@@ -33,12 +53,16 @@ export default function HomePage(){
            alt="The Burger Shop Logo"
          />
        </Navbar.Brand>
-       <Form inline>
+       <Form inline method="POST">
          <InputGroup className="mr-3">
          <FormControl
            placeholder="Email"
            aria-label="Email"
            aria-describedby="basic-addon1"
+           type = "email"
+           onChange={updateFormField}
+           name="email"
+           value={form.email}
          />
          </InputGroup>
          <InputGroup className="mr-3">
@@ -46,34 +70,38 @@ export default function HomePage(){
            placeholder="Password"
            aria-label="Password"
            aria-describedby="basic-addon1"
+           onChange={updateFormField}
+           name="password"
+           value={form.password}
          />
          </InputGroup>
-         <Button variant="light" style={{'fontFamily':'Potta One, cursive'}}>LOGIN</Button>{' '}
+         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} type="submit" onClick={submitLogin}>LOGIN</Button>{' '}
        </Form>
       </Navbar>
       <Carousel>
-        <Carousel.Item interval={2000}>
-         <img
-           className="d-block w-100 h-100"
-           src="./images/carousel_img_1.jpg"
-           alt="First slide"
-         />
-        </Carousel.Item>
-        <Carousel.Item interval={2000}>
-         <img
-           className="d-block w-100 h-100"
-           src="./images/carousel_img_2.jpg"
-           alt="Second slide"
-         />
-        </Carousel.Item>
-        <Carousel.Item interval={2000}>
-         <img
-           className="d-block w-100 h-100"
-           src="./images/carousel_img_3.jpg"
-           alt="Third slide"
-         />
-        </Carousel.Item>
-      </Carousel>
+                <Carousel.Item interval={2000}>
+                    <img
+                        className="d-block w-100 h-100"
+                        src="./images/carousel_img_1.jpg"
+                        alt="First slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item interval={2000}>
+                    <img
+                        className="d-block w-100 h-100"
+                        src="./images/carousel_img_2.jpg"
+                        alt="Second slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item interval={2000}>
+                    <img
+                        className="d-block w-100 h-100"
+                        src="./images/carousel_img_3.jpg"
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+            </Carousel>
+
       </React.Fragment>
     )
 }
