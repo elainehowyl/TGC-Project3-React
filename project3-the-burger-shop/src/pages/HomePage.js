@@ -70,12 +70,13 @@ export default function HomePage(){
            placeholder="Password"
            aria-label="Password"
            aria-describedby="basic-addon1"
+           type="password"
            onChange={updateFormField}
            name="password"
            value={form.password}
          />
          </InputGroup>
-         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} type="submit" onClick={submitLogin}>LOGIN</Button>{' '}
+         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} onClick={submitLogin}>LOGIN</Button>{' '}
        </Form>
       </Navbar>
       <Carousel>
