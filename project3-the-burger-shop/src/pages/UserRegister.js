@@ -25,6 +25,8 @@ export default function UserRegister(){
         'postal_code':'',
     })
 
+    const history = useHistory();
+
     function updateFormField(event) {
         setForm({
             ...form,
@@ -46,25 +48,9 @@ export default function UserRegister(){
             'building_name':form.building_name,
             'postal_code':form.postal_code,
         }
-        // axios.defaults.xsrfHeaderName = "X-XSRF-TOKEN";
-        // axios.defaults.xsrfCookieName = "XSRF-TOKEN";
-        // let response = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create/token')
-        // let csrftoken = response.data
-        // console.log(csrftoken)
-        // const csrftoken = Cookies.get('XSRF-TOKEN');
-        // console.log(csrftoken)
-        await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister
-        // {
-        //     headers:{
-        //         withCredentials: true,
-        //         "X-XSRF-TOKEN": csrftoken,
-        //         "X-XSRF-TOKEN": Cookies.get('XSRF-TOKEN'),
-        //         xsrfCookieName: "XSRF-TOKEN",
-        //         xsrfHeaderName: "X-XSRF-TOKEN"
-        //     }
-        // }
-        )
+        await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
         alert('registration completed')
+        history.push('/')
     }
 
     return (

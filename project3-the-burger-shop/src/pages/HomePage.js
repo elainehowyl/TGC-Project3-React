@@ -12,12 +12,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
+const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
+
 
 export default function HomePage(){
 
     const [form, setForm] = useState({
         'email': "",
-        'password': ""
+        'password': "",
+        'token': ""
     })
 
     const history = useHistory();
@@ -33,11 +36,20 @@ export default function HomePage(){
         history.push('/testing')
     }
 
-    function submitLogin(){
-        axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/login', {
+    async function submitLogin(){
+        let response = await axios.post(`${BASE_API_URL}/user/login`, {
             'email': form.email,
             'password': form.password
+        });
+        form.token = response.data.token
+        let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
+            headers:{
+                Authorization: `Bearer ${form.token}`
+            }
         })
+        console.log("Fetch User Profile: ", userProfile.data)
+        // form.token = response.data.token
+        history.push('/testing')
     }
 
     return (
@@ -69,6 +81,7 @@ export default function HomePage(){
          <FormControl
            placeholder="Password"
            aria-label="Password"
+           autoComplete="current-password"
            aria-describedby="basic-addon1"
            type="password"
            onChange={updateFormField}
