@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Cookies from 'js-cookie'
 import axios from 'axios'
 
 import {
@@ -21,7 +22,7 @@ export default function UserRegister(){
         'block_number':'',
         'unit_number':'',
         'building_name':'',
-        'postal_code':''
+        'postal_code':'',
     })
 
     function updateFormField(event) {
@@ -43,9 +44,26 @@ export default function UserRegister(){
             'block_number':form.block_number,
             'unit_number':form.unit_number,
             'building_name':form.building_name,
-            'postal_code':form.postal_code
+            'postal_code':form.postal_code,
         }
-        await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
+        // axios.defaults.xsrfHeaderName = "X-XSRF-TOKEN";
+        // axios.defaults.xsrfCookieName = "XSRF-TOKEN";
+        // let response = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create/token')
+        // let csrftoken = response.data
+        // console.log(csrftoken)
+        // const csrftoken = Cookies.get('XSRF-TOKEN');
+        // console.log(csrftoken)
+        await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister
+        // {
+        //     headers:{
+        //         withCredentials: true,
+        //         "X-XSRF-TOKEN": csrftoken,
+        //         "X-XSRF-TOKEN": Cookies.get('XSRF-TOKEN'),
+        //         xsrfCookieName: "XSRF-TOKEN",
+        //         xsrfHeaderName: "X-XSRF-TOKEN"
+        //     }
+        // }
+        )
         alert('registration completed')
     }
 
