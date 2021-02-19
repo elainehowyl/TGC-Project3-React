@@ -11,7 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import HomePage from './pages/HomePage';
 import UserAddress from './pages/UserAddress';
-import UserRegister from './pages/UserRegister'
+import UserRegister from './pages/UserRegister';
+import Testing from './pages/Testing';
 
 function App() {
   return (
@@ -21,11 +22,14 @@ function App() {
               <Route exact path="/">
                 <HomePage/>
               </Route>
-              <Route exact path="/testing">
+              <Route exact path="/register">
+                <UserRegister/>
+              </Route>
+              <Route path="/testing">
                 <UserAddress/>
               </Route>
-              <Route exact path="/register">
-                  <UserRegister/>
+              <Route exact path="/testing2">
+                <Testing/>
               </Route>
           </Switch>
       </Router>

@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import axios from 'axios'
 
 import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
     useHistory,
 } from "react-router-dom"
 
@@ -11,6 +14,10 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+
+import FoodMenu from './FoodMenu'
+import UserRegister from './UserRegister'
+
 
 const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
 
@@ -32,31 +39,49 @@ export default function HomePage(){
         })
     }
 
-    function submitForm() {
-        history.push('/testing')
-    }
-
     async function submitLogin(){
         let response = await axios.post(`${BASE_API_URL}/user/login`, {
             'email': form.email,
             'password': form.password
         });
-        form.token = response.data.token
-        let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
-            headers:{
+        // testing if login successful
+        // this works, but adonis side will present error message when username not found / password incorrect
+        // status code is 200 (should it even be 200?)
+        console.log(response)
+        if(response.data.token){
+             // testing if i am able to fetch user's profile
+             // yes i can
+             form.token = response.data.token
+             let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
+             headers:{
                 Authorization: `Bearer ${form.token}`
             }
         })
         console.log("Fetch User Profile: ", userProfile.data)
+            history.push('/testing')
+        } 
+        else{
+            alert("Incorrect email or password")
+        }
+        // testing if i am able to fetch user's profile
+        // yes i can
         // form.token = response.data.token
-        history.push('/testing')
+        // let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
+        //     headers:{
+        //         Authorization: `Bearer ${form.token}`
+        //     }
+        // })
+        // console.log("Fetch User Profile: ", userProfile.data)
+    }
+
+    function goToRegister(){
+        history.push('/register')
     }
 
     return (
         <React.Fragment>
-        <button onClick={submitForm}>Next Page</button>
         <Navbar bg="dark">
-       <Navbar.Brand href="#home">
+       <Navbar.Brand href="#home" className="mr-5">
          <img
            src="./images/burger_shop_logo.png"
            width="150"
@@ -89,10 +114,13 @@ export default function HomePage(){
            value={form.password}
          />
          </InputGroup>
-         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} onClick={submitLogin}>LOGIN</Button>{' '}
+         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} onClick={submitLogin}>LOGIN</Button>
        </Form>
+       <Button className="ml-5" variant="dark" style={{'fontFamily':'Carter One, cursive'}} onClick={goToRegister}>REGISTER</Button>
       </Navbar>
-      <Carousel>
+      <Switch>
+          <Route exact path="/">
+           <Carousel>
                 <Carousel.Item interval={2000}>
                     <img
                         className="d-block w-100 h-100"
@@ -115,7 +143,11 @@ export default function HomePage(){
                     />
                 </Carousel.Item>
             </Carousel>
-
+            </Route>
+            <Route exact path="/register">
+               <UserRegister/>
+            </Route>
+            </Switch>
       </React.Fragment>
     )
 }
