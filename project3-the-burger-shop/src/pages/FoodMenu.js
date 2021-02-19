@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+import '../styles/FoodMenu.css'
+
 import Card from 'react-bootstrap/Card';
 
 export default class FoodMenu extends React.Component{
@@ -27,7 +29,7 @@ export default class FoodMenu extends React.Component{
                             <Card.Img variant="top" src={food.image_source}/>
                             <Card.Text>
                                 <h6>{food.name}</h6>
-                                <h6>Price: {food.price}</h6>
+                                <h6>Price: ${food.price/100}</h6>
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -40,7 +42,9 @@ export default class FoodMenu extends React.Component{
     render(){
         return(
             <React.Fragment>
-                {this.renderMenu()}
+                <div id="menu-container">
+                    {this.renderMenu()}
+                </div>
             </React.Fragment>
         )
     }

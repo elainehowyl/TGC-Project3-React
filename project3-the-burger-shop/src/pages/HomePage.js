@@ -58,7 +58,7 @@ export default function HomePage(){
             }
         })
         console.log("Fetch User Profile: ", userProfile.data)
-            history.push('/testing')
+            history.push('/food')
         } 
         else{
             alert("Incorrect email or password")
