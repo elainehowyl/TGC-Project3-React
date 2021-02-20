@@ -1,4 +1,16 @@
 #menu-container{
+    width:80%;
     display:flex;
     flex-wrap:wrap;
+}
+#menu-bar{
+    display:flex;
+    justify-content:flex-end;
+}
+#main-menu{
+    display:flex;
+}
+#category-bar-container{
+    width:20%;
+    background-color:yellow;
 }
