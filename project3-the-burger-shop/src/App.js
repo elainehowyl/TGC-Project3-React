@@ -13,9 +13,7 @@ import HomePage from './pages/HomePage';
 import UserAddress from './pages/UserAddress';
 import UserRegister from './pages/UserRegister';
 import Testing from './pages/Testing';
-import FoodMenu from './pages/FoodMenu';
-
-import TestingMenuBar from './pages/TestingMenuBar';
+import MenuPage from './pages/MenuPage';
 
 function App() {
   return (
@@ -28,8 +26,8 @@ function App() {
               <Route exact path="/register">
                 <UserRegister/>
               </Route>
-              <Route exact path="/menu">
-                <TestingMenuBar/>
+              <Route path="/menu">
+                <MenuPage/>
               </Route>
               <Route path="/testing">
                 <UserAddress/>

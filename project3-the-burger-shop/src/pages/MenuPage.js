@@ -8,27 +8,27 @@ import {
     Route,
 } from "react-router-dom";
 
-import '../styles/FoodMenu.css';
+import '../styles/MenuPage.css';
 
 import Card from 'react-bootstrap/Card';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
+import MenuBar from './MenuBar';
 
-export default class FoodMenu extends React.Component{
+export default class MenuPage extends React.Component{
     state = {
         foodList:[],
-        categoryList:[],
+        // categoryList:[],
     }
     
     async componentDidMount(){
        let menuResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/food')
-       let categoryResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/category')
+    //    let categoryResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/category')
        console.log("Menu Response is: ", menuResponse)
-       console.log("Category Response is: ", categoryResponse)
        this.setState({
            foodList:menuResponse.data,
-           categoryList:categoryResponse.data
+        //    categoryList:categoryResponse.data
        })
        console.log("Menu Response data is: ", this.state.foodList)
     }
@@ -37,20 +37,17 @@ export default class FoodMenu extends React.Component{
         alert("Cart added successfully!")
     }
 
-    sayHi = (categoryTitle) => {
-        if(categoryTitle.includes(' ')){
-            let index = categoryTitle.indexOf('')
-            let firstString = categoryTitle.slice(0, index)
-            let secondString = categoryTitle.slice(index+1)
-            let newCategoryTitle = (firstString.concat(secondString)).toLowerCase()
-            // let newCategoryTitleLowerCase = newCategoryTitle.toLowerCase()
-            // history.push(`/menu/${newCategoryTitle}`)
-        }
-        else{
-            let newCategoryTitle = categoryTitle.toLowerCase()
-            // history.push(`/menu/${newCategoryTitle}`)
-        }
-    }
+    // sayHi = (categoryTitle) => {
+    //     if(categoryTitle.includes(' ')){
+    //         let index = categoryTitle.indexOf('')
+    //         let firstString = categoryTitle.slice(0, index)
+    //         let secondString = categoryTitle.slice(index+1)
+    //         let newCategoryTitle = (firstString.concat(secondString)).toLowerCase()
+    //     }
+    //     else{
+    //         let newCategoryTitle = categoryTitle.toLowerCase()
+    //     }
+    // }
 
     renderMenu(){
         let jsx = []
@@ -61,7 +58,7 @@ export default class FoodMenu extends React.Component{
                         <Card.Body>
                             <Card.Img variant="top" src={food.image_source}/>
                             <Card.Text>
-                                <h6>{food.name}</h6>
+                                <h4>{food.name}</h4>
                                 <p>{food.description}</p>
                                 <p>Price: ${(food.price/100).toFixed(2)}</p>
                                 <div style={{'textAlign':'center'}}>
@@ -76,18 +73,18 @@ export default class FoodMenu extends React.Component{
         return jsx;
     }
 
-    renderCategory(){
-        let jsx=[]
-        for(let category of this.state.categoryList){
-            jsx.push(
-                <React.Fragment>
-                    <Button variant="warning" style={{fontSize:"25px"}} onClick={this.sayHi(category.name)}>{category.name}</Button>
-                </React.Fragment>
+    // renderCategory(){
+    //     let jsx=[]
+    //     for(let category of this.state.categoryList){
+    //         jsx.push(
+    //             <React.Fragment>
+    //                 <Button variant="warning" style={{fontSize:"25px"}} onClick={this.sayHi(category.name)}>{category.name}</Button>
+    //             </React.Fragment>
 
-            )
-        }
-        return jsx;
-    }
+    //         )
+    //     }
+    //     return jsx;
+    // }
 
     // renderCategory(){
     //     let jsx=[]
@@ -124,7 +121,7 @@ export default class FoodMenu extends React.Component{
                 </Navbar>
                 <div id="main-menu">
                     <div style={{width:"20%", backgroundColor:"yellow"}}>
-                        {this.renderCategory()}
+                        <MenuBar/>
                     </div>
                     <div id="menu-container">
                        {this.renderMenu()}

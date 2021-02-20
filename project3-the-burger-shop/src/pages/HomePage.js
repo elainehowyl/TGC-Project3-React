@@ -15,7 +15,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
-import FoodMenu from './FoodMenu'
+import MenuPage from './MenuPage'
 import UserRegister from './UserRegister'
 
 

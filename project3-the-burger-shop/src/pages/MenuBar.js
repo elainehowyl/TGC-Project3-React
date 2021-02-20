@@ -10,7 +10,7 @@ import {
 
 import Button from 'react-bootstrap/Button';
 
-export default function TestingMenuBar(){
+export default function MenuBar(){
 
     const [categories, setCategories] = useState([]);
 
@@ -37,13 +37,16 @@ export default function TestingMenuBar(){
             let firstString = categoryTitle.slice(0, index)
             let secondString = categoryTitle.slice(index+1)
             newCategoryTitle = (firstString.concat(secondString)).toLowerCase()
-            // history.push(`/menu/${newCategoryTitle}`)
         }
         else{
-            newCategoryTitle = categoryTitle.toLowerCase()
-            // history.push(`/menu/${newCategoryTitle}`)
+            if(categoryTitle === "Breakfast"){
+                newCategoryTitle = ""
+            }
+            else{
+                newCategoryTitle = categoryTitle.toLowerCase()
+            }
+            // newCategoryTitle = categoryTitle.toLowerCase()
         }
-        console.log(newCategoryTitle)
         history.push(`/menu/${newCategoryTitle}`)
     }
 
@@ -62,9 +65,8 @@ export default function TestingMenuBar(){
     return(
         <React.Fragment>
             {renderCategories()}
-            <Router>
             <Switch>
-                <Route exact path="/menu/breakfast">
+                <Route exact path="/menu">
                     <h1>Breakfast</h1>
                 </Route>
                 <Route exact path="/menu/desserts">
@@ -89,7 +91,6 @@ export default function TestingMenuBar(){
                     <h1>Sides</h1>
                 </Route>
             </Switch>
-            </Router>
         </React.Fragment>
     )
 }
