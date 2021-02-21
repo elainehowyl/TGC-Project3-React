@@ -37,11 +37,11 @@ export default function CategoriesMenu(){
                         <Card.Body>
                             <Card.Img variant="top" src={food.image_source}/>
                             <Card.Text>
-                                <p style={{'fontWeight':'bold'}}>{food.name}</p>
+                                <p style={{fontWeight:"bold"}}>{food.name}</p>
                                 <p>{food.description}</p>
                                 <p>Price: ${(food.price/100).toFixed(2)}</p>
                             </Card.Text>
-                            <div style={{'textAlign':'center'}}>
+                            <div style={{textAlign:"center"}}>
                                 <Button variant="dark">Add To Cart</Button>
                             </div>
                         </Card.Body>

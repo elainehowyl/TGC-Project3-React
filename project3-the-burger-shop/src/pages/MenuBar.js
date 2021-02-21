@@ -17,11 +17,6 @@ export default function MenuBar(){
     const history = useHistory();
 
     useEffect(() => {
-        // const fetchApi = async() => {
-        //     let response = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/category')
-        //     console.log(response.data)
-        //     setCategories(response.data)
-        // }
         fetchApi();
     },[])
 
@@ -55,7 +50,7 @@ export default function MenuBar(){
         for(let category of categories){
             jsx.push(
                 <React.Fragment>
-                    <Button variant="warning" style={{fontSize:"25px"}} onClick={() => changeRoute(category.name)}>{category.name}</Button>
+                    <Button variant="warning" style={{fontSize:"25px", width:"100%"}} onClick={() => changeRoute(category.name)}>{category.name}</Button>
                 </React.Fragment>
             )
         }

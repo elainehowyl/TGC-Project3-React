@@ -121,7 +121,7 @@ export default class MenuPage extends React.Component{
                     </div>
                 </Navbar>
                 <div id="main-menu">
-                    <div style={{width:"20%", backgroundColor:"yellow"}}>
+                    <div style={{width:"20%", backgroundColor:"#ffc107"}}>
                        <MenuBar/>
                     </div>
                     <div id="menu-container">
