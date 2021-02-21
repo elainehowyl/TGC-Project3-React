@@ -30,7 +30,7 @@ export default function MenuBar(){
         setCategories(response.data)
     }
 
-    function sayHi(categoryTitle){
+    function changeRoute(categoryTitle){
         let newCategoryTitle = ""
         if(categoryTitle.includes(' ')){
             let index = categoryTitle.indexOf(' ')
@@ -55,7 +55,7 @@ export default function MenuBar(){
         for(let category of categories){
             jsx.push(
                 <React.Fragment>
-                    <Button variant="warning" style={{fontSize:"25px"}} onClick={() => sayHi(category.name)}>{category.name}</Button>
+                    <Button variant="warning" style={{fontSize:"25px"}} onClick={() => changeRoute(category.name)}>{category.name}</Button>
                 </React.Fragment>
             )
         }
@@ -65,32 +65,6 @@ export default function MenuBar(){
     return(
         <React.Fragment>
             {renderCategories()}
-            <Switch>
-                <Route exact path="/menu">
-                    <h1>Breakfast</h1>
-                </Route>
-                <Route exact path="/menu/desserts">
-                    <h1>Desserts</h1>
-                </Route>
-                <Route exact path="/menu/beefburgers">
-                    <h1>Beef Burgers</h1>
-                </Route>
-                <Route exact path="/menu/chickenburgers">
-                    <h1>Chicken Burgers</h1>
-                </Route>
-                <Route exact path="/menu/fishburgers">
-                    <h1>Fish Burgers</h1>
-                </Route>
-                <Route exact path="/menu/coldbeverages">
-                    <h1>Cold Beverages</h1>
-                </Route>
-                <Route exact path="/menu/warmbeverages">
-                    <h1>Warm Beverages</h1>
-                </Route>
-                <Route exact path="/menu/sides">
-                    <h1>Sides</h1>
-                </Route>
-            </Switch>
         </React.Fragment>
     )
 }

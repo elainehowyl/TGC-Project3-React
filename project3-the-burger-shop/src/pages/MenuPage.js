@@ -15,27 +15,28 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
 import MenuBar from './MenuBar';
+import CategoriesMenu from './CategoriesMenu'
 
 export default class MenuPage extends React.Component{
-    state = {
-        foodList:[],
-        // categoryList:[],
-    }
+    // state = {
+    //     foodList:[],
+    //     // categoryList:[],
+    // }
     
-    async componentDidMount(){
-       let menuResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/food')
-    //    let categoryResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/category')
-       console.log("Menu Response is: ", menuResponse)
-       this.setState({
-           foodList:menuResponse.data,
-        //    categoryList:categoryResponse.data
-       })
-       console.log("Menu Response data is: ", this.state.foodList)
-    }
+    // async componentDidMount(){
+    //    let menuResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/food')
+    // //    let categoryResponse = await axios.get('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api/category')
+    //    console.log("Menu Response is: ", menuResponse)
+    //    this.setState({
+    //        foodList:menuResponse.data,
+    //     //    categoryList:categoryResponse.data
+    //    })
+    //    console.log("Menu Response data is: ", this.state.foodList)
+    // }
 
-    cartPopOut = () => {
-        alert("Cart added successfully!")
-    }
+    // cartPopOut = () => {
+    //     alert("Cart added successfully!")
+    // }
 
     // sayHi = (categoryTitle) => {
     //     if(categoryTitle.includes(' ')){
@@ -49,29 +50,29 @@ export default class MenuPage extends React.Component{
     //     }
     // }
 
-    renderMenu(){
-        let jsx = []
-        for(let food of this.state.foodList){
-            jsx.push(
-                <React.Fragment>
-                    <Card style={{width:"25%"}}>
-                        <Card.Body>
-                            <Card.Img variant="top" src={food.image_source}/>
-                            <Card.Text>
-                                <h4>{food.name}</h4>
-                                <p>{food.description}</p>
-                                <p>Price: ${(food.price/100).toFixed(2)}</p>
-                                <div style={{'textAlign':'center'}}>
-                                    <Button variant="dark">Add To Cart</Button>
-                                </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </React.Fragment>
-            )
-        }
-        return jsx;
-    }
+    // renderMenu(){
+    //     let jsx = []
+    //     for(let food of this.state.foodList){
+    //         jsx.push(
+    //             <React.Fragment>
+    //                 <Card style={{width:"25%"}}>
+    //                     <Card.Body>
+    //                         <Card.Img variant="top" src={food.image_source}/>
+    //                         <Card.Text>
+    //                             <p style={{'fontWeight':'bold'}}>{food.name}</p>
+    //                             <p>{food.description}</p>
+    //                             <p>Price: ${(food.price/100).toFixed(2)}</p>
+    //                         </Card.Text>
+    //                         <div style={{'textAlign':'center'}}>
+    //                             <Button variant="dark">Add To Cart</Button>
+    //                         </div>
+    //                     </Card.Body>
+    //                 </Card>
+    //             </React.Fragment>
+    //         )
+    //     }
+    //     return jsx;
+    // }
 
     // renderCategory(){
     //     let jsx=[]
@@ -121,10 +122,10 @@ export default class MenuPage extends React.Component{
                 </Navbar>
                 <div id="main-menu">
                     <div style={{width:"20%", backgroundColor:"yellow"}}>
-                        <MenuBar/>
+                       <MenuBar/>
                     </div>
                     <div id="menu-container">
-                       {this.renderMenu()}
+                       <CategoriesMenu/>
                     </div>
                 </div>
             </React.Fragment>
