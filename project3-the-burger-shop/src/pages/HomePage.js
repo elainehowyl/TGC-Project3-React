@@ -97,6 +97,7 @@ export default function HomePage(){
            aria-label="Email"
            aria-describedby="basic-addon1"
            type = "email"
+           autoComplete = "off"
            onChange={updateFormField}
            name="email"
            value={form.email}
