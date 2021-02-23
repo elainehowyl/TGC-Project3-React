@@ -9,8 +9,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
+// form validation is not working
 
-export default function Testing3(){
+export default function UserRegister(){
 
     const [form, setForm] = useState({
         'email':'',
@@ -25,6 +26,19 @@ export default function Testing3(){
         'postal_code':'',
     })
 
+    const [validation, setValidation] = useState({
+        'emailInvalid':false,
+        'passwordInvalid':false,
+        'firstNameInvalid':false,
+        'lastNameInvalid':false,
+        'contactNumberInvalid':false,
+        'streetNameInvalid':false,
+        'unitNumberInvalid':false,
+        'postalCodeInvalid':false,
+        'accountRegistrationInvalid':false,
+        'addressRegistrationInvalid':false,
+    })
+
     const history = useHistory();
 
     function updateFormField(event) {
@@ -34,51 +48,58 @@ export default function Testing3(){
         })
     }
 
-    async function submitRegister(event){
-        event.preventDefault();
-        try {
-            const newRegister = {
-              'email':form.email,
-              'password':form.password,
-              'first_name':form.first_name,
-              'last_name':form.last_name,
-              'contact_number':form.contact_number,
-              'street_name':form.street_name,
-              'block_number':form.block_number,
-              'unit_number':form.unit_number,
-              'building_name':form.building_name,
-              'postal_code':form.postal_code,
-            }
-            await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
-            alert('registration completed')
-            history.push('/')
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    // async function submitRegister(event){
-    //     event.preventDefault();
-    //     const newRegister = {
-    //         'email':form.email,
-    //         'password':form.password,
-    //         'first_name':form.first_name,
-    //         'last_name':form.last_name,
-    //         'contact_number':form.contact_number,
-    //         'street_name':form.street_name,
-    //         'block_number':form.block_number,
-    //         'unit_number':form.unit_number,
-    //         'building_name':form.building_name,
-    //         'postal_code':form.postal_code,
+    // function validateAccount(){
+    //     if(!form.email.includes('@') && !form.email.includes('.')){
+    //         setValidation({'emailInvalid':true})
     //     }
-    //     await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
-    //     alert('registration completed')
-    //     history.push('/')
+    //     if(form.password.length < 12){
+    //         setValidation({'passwordInvalid':true})
+    //     }
     // }
 
+    async function submitRegister(event){
+        event.preventDefault();
+        const newRegister = {
+          'email':form.email,
+          'password':form.password,
+          'first_name':form.first_name,
+          'last_name':form.last_name,
+          'contact_number':form.contact_number,
+          'street_name':form.street_name,
+          'block_number':form.block_number,
+          'unit_number':form.unit_number,
+          'building_name':form.building_name,
+          'postal_code':form.postal_code,
+        }
+        await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
+        alert('registration completed')
+        history.push('/')
+    }
+
     function nextPage(){
-        document.querySelector('#user-registration').style.display = "none";
-        document.querySelector('#address-registration').style.display = "block";
+        // validateAccount()
+        if(!form.email.includes('@') && !form.email.includes('.')){
+            setValidation({
+                ...validation,
+                emailInvalid:true
+            })
+        }
+        if(form.password.length < 12){
+            setValidation({
+                ...validation,
+                passwordInvalid:true
+            })
+        }
+        console.log(form.email)
+        console.log(validation.emailInvalid)
+        console.log(form.password)
+        console.log(validation.passwordInvalid)
+        if(!validation.emailInvalid && !validation.passwordInvalid){
+            document.querySelector('#user-registration').style.display = "none";
+            document.querySelector('#address-registration').style.display = "block";
+        }
+        // document.querySelector('#user-registration').style.display = "none";
+        // document.querySelector('#address-registration').style.display = "block";
     }
 
     function previousPage(){
@@ -91,17 +112,18 @@ export default function Testing3(){
             <Container>
                 <Form>
                     <div id="user-registration" className="m-5">
-                      <div style={{width:'100%', height:'10vh', backgroundColor:'#ffc107'}}>
-                          <h2> 1. User Registration > 2. Address Registration</h2>
+                      <div style={{width:'100%', height:'10vh', backgroundColor:'#ffc107', fontFamily:'Carter One, cursive'}} className="mb-3">
+                          <h2>STEP 1: REGISTER ACCOUNT</h2>
                       </div>
-                      <h4>Register An Account</h4>
                       <Form.Group>
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" name="email" autoComplete = "off" value={form.email} placeholder="Enter email" onChange={updateFormField}/>
+                         {validation.emailInvalid ? (<div style={{color:'red'}}>Please provide a valid email</div>) : ''}
                       </Form.Group>
                       <Form.Group>
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" autoComplete = "off" value={form.password} placeholder="Enter password" onChange={updateFormField}/>
+                        {validation.passwordInvalid ? (<div style={{color:'red'}}>Password must be at least 12 characters</div>) : '' }
                       </Form.Group>
                       <Form.Group>
                         <Form.Label>First Name</Form.Label>
@@ -118,7 +140,9 @@ export default function Testing3(){
                       <Button variant="light" onClick={nextPage}>Next</Button>
                     </div>
                     <div id="address-registration" className="m-5" style={{display:'none'}}>
-                      <h4>Add Address</h4>
+                      <div style={{width:'100%', height:'10vh', fontFamily:'Carter One, cursive', backgroundColor:'#ffc107'}} className="mb-3">
+                        <h2>STEP 2: REGISTER ADDRESS</h2>
+                      </div>
                       <Form.Group>
                         <Form.Label>Street Name</Form.Label>
                         <Form.Control type="text" name="street_name" autoComplete = "off" value={form.street_name} placeholder="Enter street name" onChange={updateFormField}/>
@@ -147,5 +171,3 @@ export default function Testing3(){
         </React.Fragment>
     )
 }
-
-// testing show and hide with user registration: user and address

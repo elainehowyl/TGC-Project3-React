@@ -44,34 +44,22 @@ export default function HomePage(){
             'email': form.email,
             'password': form.password
         });
-        // testing if login successful
-        // this works, but adonis side will present error message when username not found / password incorrect
-        // status code is 200 (should it even be 200?)
-        console.log(response)
+        console.log(response.data.token)
         if(response.data.token){
              // testing if i am able to fetch user's profile
              // yes i can
-             form.token = response.data.token
-             let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
-             headers:{
-                Authorization: `Bearer ${form.token}`
-            }
-        })
-        console.log("Fetch User Profile: ", userProfile.data)
+            form.token = response.data.token
+            let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
+               headers:{
+                  Authorization: `Bearer ${form.token}`
+               }
+            })
+            console.log("Fetch User Profile: ", userProfile.data)
             history.push('/menu')
         } 
         else{
-            alert("Incorrect email or password")
+            alert("Incorrect email or password!")
         }
-        // testing if i am able to fetch user's profile
-        // yes i can
-        // form.token = response.data.token
-        // let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
-        //     headers:{
-        //         Authorization: `Bearer ${form.token}`
-        //     }
-        // })
-        // console.log("Fetch User Profile: ", userProfile.data)
     }
 
     function goToRegister(){
