@@ -12,6 +12,7 @@ import { FolderMinus } from 'react-bootstrap-icons';
 // import { FileDiff } from 'react-bootstrap-icons';
 
 // form validation is not working: only one error message can appear at one time
+// state in useState doesn't reflect immediately
 
 export default function UserRegister(){
 

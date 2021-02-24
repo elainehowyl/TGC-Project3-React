@@ -15,9 +15,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
-// import UserContext from '../context/UserContext';
-import MenuPage from './MenuPage';
-import UserRegister from './UserRegister';
+import MenuPage from './MenuPage'
+import UserRegister from './UserRegister'
 
 
 const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
@@ -30,8 +29,6 @@ export default function HomePage(){
         'password': "",
         'token': ""
     })
-
-    // const [profile, setProfile] = useState({})
 
     const history = useHistory();
 
@@ -57,13 +54,8 @@ export default function HomePage(){
                   Authorization: `Bearer ${form.token}`
                }
             })
-            // setProfile(userProfile.data)
-            // console.log("From profileState: ", profile)
             console.log("Fetch User Profile: ", userProfile.data)
-            // history.push('/menu')
-            history.push('/useraddresses', {
-                profile:userProfile.data
-            })
+            history.push('/menu')
         } 
         else{
             alert("Incorrect email or password!")
@@ -115,6 +107,8 @@ export default function HomePage(){
        </Form>
        <Button className="ml-5" variant="dark" style={{'fontFamily':'Carter One, cursive'}} onClick={goToRegister}>REGISTER</Button>
       </Navbar>
+      <Switch>
+          <Route exact path="/">
            <Carousel>
                 <Carousel.Item interval={2000}>
                     <img
@@ -138,6 +132,11 @@ export default function HomePage(){
                     />
                 </Carousel.Item>
             </Carousel>
+            </Route>
+            <Route exact path="/register">
+               <UserRegister/>
+            </Route>
+            </Switch>
       </React.Fragment>
     )
 }

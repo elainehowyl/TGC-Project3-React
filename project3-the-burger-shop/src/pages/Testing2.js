@@ -7,7 +7,7 @@ import {
     useHistory
 } from "react-router-dom"
 
-export default function UserAddress(){
+export default function Testing2(){
 
     const history = useHistory();
 
