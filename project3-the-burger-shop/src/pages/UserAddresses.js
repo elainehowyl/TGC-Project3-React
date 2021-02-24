@@ -48,7 +48,7 @@ export default function UserAddresses(){
 
     useEffect(() => {
         fetchUserAddress()
-    })
+    },[])
 
     async function fetchUserAddress(){
         let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
@@ -102,6 +102,19 @@ export default function UserAddresses(){
         // history.go(0)
     }
 
+    async function deleteAddress(address_id){
+        let response = await axios.get(`${BASE_API_URL}/deleteaddress`, {
+            headers:{
+                  Authorization: `Bearer ${token}`
+            },
+            params:{
+                'address_id':address_id
+            }
+        })
+        alert("address deleted successfully")
+        history.go(0)
+    }
+
     function renderUserAddresses(){
         let jsx=[]
         for(let address of profile.addresses){
@@ -119,7 +132,7 @@ export default function UserAddresses(){
                         <Button style={{height:'48px'}} variant="success" className="ml-2">
                             <PencilSquare/>
                         </Button>
-                        <Button style={{height:'48px'}} variant="danger" className="ml-2">
+                        <Button style={{height:'48px'}} variant="danger" className="ml-2" onClick={()=>{deleteAddress(address.id)}}>
                             <TrashFill/>
                         </Button>
                       </Card.Body>
