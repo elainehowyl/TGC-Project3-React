@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 // import UserContext from '../context/UserContext';
 import {useLocation, useHistory} from 'react-router-dom';
 
@@ -6,9 +6,16 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 export default function UserAddresses(){
     // const context = useContext(UserContext)
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const location = useLocation()
     const history = useHistory()
 
@@ -37,6 +44,10 @@ export default function UserAddresses(){
         history.push('/menu')
     }
 
+    function addAddress(){
+        
+    }
+
     function renderUserAddresses(){
         let jsx=[]
         for(let address of fetchedProfile.addresses){
@@ -63,14 +74,26 @@ export default function UserAddresses(){
         <React.Fragment>
             <Container className="d-flex justify-content-center flex-column align-items-center">
                 <div>
-                <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#f8f9fa'}}>
+                <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}}>
                     <h4 className="m-3">Welcome back, {fetchedProfile.first_name} {fetchedProfile.last_name}</h4>
                 </Card.Header>
                 {renderUserAddresses()}
-                <Card.Footer className="d-flex justify-content-center">
-                    <Button variant="light"> + </Button>
+                <Card.Footer className="d-flex justify-content-center" style={{backgroundColor:'#dc3545'}}>
+                    <Button variant="danger" onClick={handleShow} style={{fontSize:'40px', fontFamily:'Carter One, cursive'}}> + </Button>
                 </Card.Footer>
                 </div>
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Add Address</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                      <Form></Form>
+                  </Modal.Body>
+                  <Modal.Footer>
+                     <Button variant="secondary" onClick={handleClose}>Close</Button>
+                     <Button variant="primary" onClick={handleClose}>Save Changes</Button>
+                  </Modal.Footer>
+                </Modal>
             </Container>
         </React.Fragment>
     )
