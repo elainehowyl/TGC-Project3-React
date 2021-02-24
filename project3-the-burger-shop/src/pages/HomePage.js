@@ -28,7 +28,7 @@ export default function HomePage(){
     const [form, setForm] = useState({
         'email': "",
         'password': "",
-        'token': ""
+        // 'token': ""
     })
 
     // const [profile, setProfile] = useState({})
@@ -51,18 +51,21 @@ export default function HomePage(){
         if(response.data.token){
              // testing if i am able to fetch user's profile
              // yes i can
-            form.token = response.data.token
-            let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
-               headers:{
-                  Authorization: `Bearer ${form.token}`
-               }
-            })
+            // form.token = response.data.token
+            // let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
+            //    headers:{
+            //       Authorization: `Bearer ${response.data.token}`
+            //    }
+            // })
             // setProfile(userProfile.data)
+            // console.log("Look here: ", userProfile.data)
             // console.log("From profileState: ", profile)
             // console.log("Fetch User Profile: ", userProfile.data)
             // history.push('/menu')
+            // console.log(userProfile.data.id)
             history.push('/useraddresses', {
-                profile:userProfile.data
+                // profileId:userProfile.data.id,
+                token:response.data.token
             })
         } 
         else{

@@ -59,6 +59,8 @@ export default function UserRegister(){
 
     const history = useHistory();
 
+    const BASE_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io';
+
     function updateFormField(event) {
         setForm({
             ...form,
@@ -80,7 +82,7 @@ export default function UserRegister(){
           'building_name':form.building_name,
           'postal_code':form.postal_code,
         }
-        let response = await axios.post('https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/users/create', newRegister)
+        let response = await axios.post(`${BASE_URL}/users/create`, newRegister)
         console.log(response.data)
         if(Array.isArray(response.data)){
             for(let error of response.data){
@@ -255,7 +257,7 @@ export default function UserRegister(){
     return (
         <React.Fragment>
             <Container>
-                <Form>
+                <Form method="POST">
                     <div id="user-registration" className="m-5">
                       <div style={{width:'100%', height:'10vh', backgroundColor:'#ffc107', fontFamily:'Carter One, cursive'}} className="mb-3">
                           <h2>STEP 1: REGISTER ACCOUNT</h2>
