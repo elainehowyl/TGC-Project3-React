@@ -47,7 +47,7 @@ export default function HomePage(){
             'email': form.email,
             'password': form.password
         });
-        console.log(response.data)
+        // console.log(response.data)
         if(response.data.token){
              // testing if i am able to fetch user's profile
              // yes i can
@@ -59,7 +59,7 @@ export default function HomePage(){
             })
             // setProfile(userProfile.data)
             // console.log("From profileState: ", profile)
-            console.log("Fetch User Profile: ", userProfile.data)
+            // console.log("Fetch User Profile: ", userProfile.data)
             // history.push('/menu')
             history.push('/useraddresses', {
                 profile:userProfile.data
