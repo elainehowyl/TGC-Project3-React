@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 // import UserContext from '../context/UserContext';
 import {useLocation, useHistory} from 'react-router-dom';
+import { TrashFill, PencilSquare } from 'react-bootstrap-icons';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -108,7 +109,6 @@ export default function UserAddresses(){
                 <React.Fragment>
                     <Card>
                       <Card.Body>
-                        <Card.Title style={{fontFamily:'Carter One, cursive'}}>Address {profile.addresses.indexOf(address)+1}</Card.Title>
                         <Card.Text>
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>{address.street_name}, {address.block_number}</p>
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>#{address.unit_number}</p>
@@ -116,6 +116,12 @@ export default function UserAddresses(){
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>Postal Code: {address.postal_code}</p>
                         </Card.Text>
                         <Button variant="warning" style={{fontSize:'18px',fontFamily:'Carter One, cursive'}} onClick={goToMenu}>Deliver to this address</Button>
+                        <Button style={{height:'48px'}} variant="success" className="ml-2">
+                            <PencilSquare/>
+                        </Button>
+                        <Button style={{height:'48px'}} variant="danger" className="ml-2">
+                            <TrashFill/>
+                        </Button>
                       </Card.Body>
                     </Card>
                 </React.Fragment>
