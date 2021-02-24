@@ -40,7 +40,6 @@ export default function MenuBar(){
             else{
                 newCategoryTitle = categoryTitle.toLowerCase()
             }
-            // newCategoryTitle = categoryTitle.toLowerCase()
         }
         history.push(`/menu/${newCategoryTitle}`)
     }

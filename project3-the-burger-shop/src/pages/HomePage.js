@@ -44,7 +44,7 @@ export default function HomePage(){
             'email': form.email,
             'password': form.password
         });
-        console.log(response.data.token)
+        console.log(response.data)
         if(response.data.token){
              // testing if i am able to fetch user's profile
              // yes i can

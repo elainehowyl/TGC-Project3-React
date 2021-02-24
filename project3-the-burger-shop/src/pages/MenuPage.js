@@ -14,8 +14,8 @@ import Card from 'react-bootstrap/Card';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
-import MenuBar from './MenuBar';
-import CategoriesMenu from './CategoriesMenu'
+import CategoriesBar from './CategoriesBar';
+import MenuDisplay from './MenuDisplay'
 
 export default class MenuPage extends React.Component{
     // state = {
@@ -122,10 +122,10 @@ export default class MenuPage extends React.Component{
                 </Navbar>
                 <div id="main-menu">
                     <div style={{width:"20%", backgroundColor:"#ffc107"}}>
-                       <MenuBar/>
+                       <CategoriesBar/>
                     </div>
                     <div id="menu-container">
-                       <CategoriesMenu/>
+                       <MenuDisplay/>
                     </div>
                 </div>
             </React.Fragment>
