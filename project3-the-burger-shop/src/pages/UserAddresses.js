@@ -150,7 +150,8 @@ export default function UserAddresses(){
         <React.Fragment>
             <Container className="d-flex justify-content-center flex-column align-items-center">
                 <div>
-                <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}}>
+                <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}} className="d-flex flex-column align-items-center">
+                    <img src='./images/burger_shop_logo.png' width="40%"/>
                     <h4 className="m-3">Welcome back, {profile.first_name} {profile.last_name}</h4>
                 </Card.Header>
                 {renderUserAddresses()}
