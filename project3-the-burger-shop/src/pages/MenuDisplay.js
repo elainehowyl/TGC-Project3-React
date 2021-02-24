@@ -42,7 +42,7 @@ export default function CategoriesMenu(){
                                 <p>Price: ${(food.price/100).toFixed(2)}</p>
                             </Card.Text>
                             <div style={{textAlign:"center"}}>
-                                <Button variant="dark">Add To Cart</Button>
+                                <Button variant="outline-success">Add To Cart</Button>
                             </div>
                         </Card.Body>
                       </Card>

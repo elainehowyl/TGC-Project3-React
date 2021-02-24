@@ -96,10 +96,14 @@ export default function UserAddresses(){
             'building_name':addressForm.building_name,
             'postal_code':addressForm.postal_code,
         };
-        let response = await axios.post(`${BASE_API_URL}/addaddress`, newAddress);
+        let response = await axios.post(`${BASE_API_URL}/addaddress`, newAddress, {
+            headers:{
+                  Authorization: `Bearer ${token}`
+            },
+        });
         alert("address added successfully");
         handleClose();
-        // history.go(0)
+        history.go(0)
     }
 
     async function deleteAddress(address_id){
@@ -184,7 +188,7 @@ export default function UserAddresses(){
                   </Modal.Body>
                   <Modal.Footer>
                      <Button variant="secondary" onClick={handleClose}>Close</Button>
-                     <Button variant="primary" onClick={addAddress}>Save Changes</Button>
+                     <Button variant="primary" onClick={addAddress}>Add Address</Button>
                   </Modal.Footer>
                 </Modal>
             </Container>

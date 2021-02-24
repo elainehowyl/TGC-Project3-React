@@ -49,7 +49,7 @@ export default function MenuBar(){
         for(let category of categories){
             jsx.push(
                 <React.Fragment>
-                    <Button variant="warning" style={{fontSize:"25px", width:"100%"}} onClick={() => changeRoute(category.name)}>{category.name}</Button>
+                    <Button variant="outline-dark" style={{fontSize:"25px", width:"100%", fontFamily:'Carter One, cursive'}} onClick={() => changeRoute(category.name)}>{category.name}</Button>
                 </React.Fragment>
             )
         }
