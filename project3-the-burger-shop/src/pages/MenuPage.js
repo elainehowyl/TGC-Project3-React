@@ -1,7 +1,6 @@
 import React from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CartFill } from 'react-bootstrap-icons';
-import axios from 'axios';
 
 import '../styles/MenuPage.css';
 
@@ -15,7 +14,6 @@ import MenuDisplay from './MenuDisplay';
 
 export default function MenuPage() {
 
-    const location = useLocation()
     const history = useHistory()
 
     // let address_id = location.state.selectedAddress_id
@@ -27,6 +25,8 @@ export default function MenuPage() {
     // }
 
     // console.log("Shared Profile: ", sharedProfile)
+
+    // localStorage.setItem('foodOrder', '')
 
     const testing = JSON.parse(localStorage.getItem('fetchedProfile'))
     const testing2 = localStorage.getItem('fetchedSelectedAddressId')
