@@ -8,8 +8,6 @@ import {
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { FolderMinus } from 'react-bootstrap-icons';
-// import { FileDiff } from 'react-bootstrap-icons';
 
 // form validation is not working: only one error message can appear at one time
 // state in useState doesn't reflect immediately

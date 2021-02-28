@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-// import UserContext from '../context/UserContext';
 import {useLocation, useHistory} from 'react-router-dom';
 import { TrashFill, PencilSquare } from 'react-bootstrap-icons';
 import axios from 'axios';
@@ -11,7 +10,6 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 export default function UserAddresses(){
-    // const context = useContext(UserContext)
 
     const [addressForm, setAddressForm] = useState({
         'id':'',
@@ -23,7 +21,10 @@ export default function UserAddresses(){
     })
 
     const [profile, setProfile] = useState({
-        // 'token':'',
+        'token':'',
+        'id':'',
+        'email':'',
+        'contact_number':'',
         'first_name':'',
         'last_name':'',
         'addresses':[],
@@ -37,12 +38,8 @@ export default function UserAddresses(){
     const location = useLocation()
     const history = useHistory()
 
-    // let profile = {}
-
-    // let fetchedProfile = location.state.profileId
     let token = location.state.token
-    // console.log("Fetched Profile: ", fetchedProfile)
-    // console.log("Fetched Profile Id: ", fetchedProfile.id)
+
 
     const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api';
 
@@ -57,7 +54,10 @@ export default function UserAddresses(){
                }
         })
         setProfile({
+            token:token,
             id:userProfile.data.id,
+            email:userProfile.data.email,
+            contact_number:userProfile.data.contact_number,
             first_name:userProfile.data.first_name,
             last_name:userProfile.data.last_name,
             addresses:userProfile.data.addresses
@@ -83,11 +83,14 @@ export default function UserAddresses(){
         })
     }
 
-    function goToMenu(){
+    function goToMenu(selectedAddress_id){
+        localStorage.setItem('fetchedProfile', JSON.stringify(profile))
+        localStorage.setItem('fetchedSelectedAddressId', selectedAddress_id)
+        // console.log("Profile from state: ", profile)
         history.push('/menu')
     }
 
-    async function addAddress(){
+    async function addAddress(address_id){
         let newAddress = {
             'user_id':profile.id,
             'street_name':addressForm.street_name,
@@ -96,18 +99,18 @@ export default function UserAddresses(){
             'building_name':addressForm.building_name,
             'postal_code':addressForm.postal_code,
         };
-        let response = await axios.post(`${BASE_API_URL}/addaddress`, newAddress, {
+        await axios.post(`${BASE_API_URL}/addaddress`, newAddress, {
             headers:{
                   Authorization: `Bearer ${token}`
             },
         });
-        alert("address added successfully");
+        alert("Address added successfully");
         handleClose();
         history.go(0)
     }
 
     async function deleteAddress(address_id){
-        let response = await axios.get(`${BASE_API_URL}/deleteaddress`, {
+        await axios.get(`${BASE_API_URL}/deleteaddress`, {
             headers:{
                   Authorization: `Bearer ${token}`
             },
@@ -127,12 +130,12 @@ export default function UserAddresses(){
                     <Card>
                       <Card.Body>
                         <Card.Text>
-                          <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>{address.street_name}, {address.block_number}</p>
+                          <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>{address.street_name}{address.block_number ? ', Blk' : ''} {address.block_number}</p>
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>#{address.unit_number}</p>
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>{address.building_name}</p>
                           <p style={{fontSize:'18px', fontFamily: 'Public Sans, sans-serif'}}>Postal Code: {address.postal_code}</p>
                         </Card.Text>
-                        <Button variant="warning" style={{fontSize:'18px',fontFamily:'Carter One, cursive'}} onClick={goToMenu}>Deliver to this address</Button>
+                        <Button variant="warning" style={{fontSize:'18px',fontFamily:'Carter One, cursive'}} onClick={()=>{goToMenu(address.id)}}>Deliver to this address</Button>
                         <Button style={{height:'48px'}} variant="success" className="ml-2">
                             <PencilSquare/>
                         </Button>
@@ -150,14 +153,15 @@ export default function UserAddresses(){
         <React.Fragment>
             <Container className="d-flex justify-content-center flex-column align-items-center">
                 <div>
-                <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}} className="d-flex flex-column align-items-center">
-                    <img src='./images/burger_shop_logo.png' width="40%"/>
-                    <h4 className="m-3">Welcome back, {profile.first_name} {profile.last_name}</h4>
-                </Card.Header>
-                {renderUserAddresses()}
-                <Card.Footer className="d-flex justify-content-center" style={{backgroundColor:'#dc3545'}}>
+                 <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}} className="d-flex flex-column align-items-center">
+                    <img src='./images/burger_shop_logo.png' alt="burger shop logo" width="40%"/>
+                    <h3 className="m-3">Welcome back, {profile.first_name} {profile.last_name}</h3>
+                    <h6>Where would you like us to deliver your food to?</h6>
+                 </Card.Header>
+                 {renderUserAddresses()}
+                 <Card.Footer className="d-flex justify-content-center" style={{backgroundColor:'#dc3545'}}>
                     <Button variant="danger" onClick={handleShow} style={{fontSize:'40px', fontFamily:'Carter One, cursive'}}> + </Button>
-                </Card.Footer>
+                 </Card.Footer>
                 </div>
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -189,7 +193,7 @@ export default function UserAddresses(){
                   </Modal.Body>
                   <Modal.Footer>
                      <Button variant="secondary" onClick={handleClose}>Close</Button>
-                     <Button variant="primary" onClick={addAddress}>Add Address</Button>
+                     <Button variant="secondary" onClick={addAddress}>Add Address</Button>
                   </Modal.Footer>
                 </Modal>
             </Container>

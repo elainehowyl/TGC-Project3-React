@@ -1,10 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     useHistory,
 } from "react-router-dom"
 
@@ -16,14 +13,13 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 // import UserContext from '../context/UserContext';
-import MenuPage from './MenuPage';
-import UserRegister from './UserRegister';
+// import UserRegister from './UserRegister';
 
 
-const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
+const BASE_API_URL = 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
 
 
-export default function HomePage(){
+export default function HomePage() {
 
     const [form, setForm] = useState({
         'email': "",
@@ -35,22 +31,21 @@ export default function HomePage(){
 
     const history = useHistory();
 
-    function updateFormField(event){
+    function updateFormField(event) {
         setForm({
             ...form,
-            [event.target.name] : event.target.value 
+            [event.target.name]: event.target.value
         })
     }
 
-    async function submitLogin(){
+    async function submitLogin() {
         let response = await axios.post(`${BASE_API_URL}/user/login`, {
             'email': form.email,
             'password': form.password
         });
-        // console.log(response.data)
-        if(response.data.token){
-             // testing if i am able to fetch user's profile
-             // yes i can
+        if (response.data.token) {
+            // testing if i am able to fetch user's profile
+            // yes i can
             // form.token = response.data.token
             // let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
             //    headers:{
@@ -65,60 +60,60 @@ export default function HomePage(){
             // console.log(userProfile.data.id)
             history.push('/useraddresses', {
                 // profileId:userProfile.data.id,
-                token:response.data.token
+                token: response.data.token
             })
-        } 
-        else{
+        }
+        else {
             alert("Incorrect email or password!")
         }
     }
 
-    function goToRegister(){
+    function goToRegister() {
         history.push('/register')
     }
 
     return (
         <React.Fragment>
-        <Navbar bg="dark">
-       <Navbar.Brand href="#home" className="mr-5">
-         <img
-           src="./images/burger_shop_logo.png"
-           width="150"
-           height="120"
-           className="d-inline-block align-top"
-           alt="The Burger Shop Logo"
-         />
-       </Navbar.Brand>
-       <Form inline method="POST">
-         <InputGroup className="mr-3">
-         <FormControl
-           placeholder="Email"
-           aria-label="Email"
-           aria-describedby="basic-addon1"
-           type = "email"
-           autoComplete = "off"
-           onChange={updateFormField}
-           name="email"
-           value={form.email}
-         />
-         </InputGroup>
-         <InputGroup className="mr-3">
-         <FormControl
-           placeholder="Password"
-           aria-label="Password"
-           autoComplete="current-password"
-           aria-describedby="basic-addon1"
-           type="password"
-           onChange={updateFormField}
-           name="password"
-           value={form.password}
-         />
-         </InputGroup>
-         <Button variant="light" style={{'fontFamily':'Carter One, cursive'}} onClick={submitLogin}>LOGIN</Button>
-       </Form>
-       <Button className="ml-5" variant="dark" style={{'fontFamily':'Carter One, cursive'}} onClick={goToRegister}>REGISTER</Button>
-      </Navbar>
-           <Carousel>
+            <Navbar bg="dark">
+                <Navbar.Brand href="#home" className="mr-5">
+                    <img
+                        src="./images/burger_shop_logo.png"
+                        width="150"
+                        height="120"
+                        className="d-inline-block align-top"
+                        alt="The Burger Shop Logo"
+                    />
+                </Navbar.Brand>
+                <Form inline method="POST">
+                    <InputGroup className="mr-3">
+                        <FormControl
+                            placeholder="Email"
+                            aria-label="Email"
+                            aria-describedby="basic-addon1"
+                            type="email"
+                            autoComplete="off"
+                            onChange={updateFormField}
+                            name="email"
+                            value={form.email}
+                        />
+                    </InputGroup>
+                    <InputGroup className="mr-3">
+                        <FormControl
+                            placeholder="Password"
+                            aria-label="Password"
+                            autoComplete="current-password"
+                            aria-describedby="basic-addon1"
+                            type="password"
+                            onChange={updateFormField}
+                            name="password"
+                            value={form.password}
+                        />
+                    </InputGroup>
+                    <Button variant="light" style={{ 'fontFamily': 'Carter One, cursive' }} onClick={submitLogin}>LOGIN</Button>
+                </Form>
+                <Button className="ml-5" variant="dark" style={{ 'fontFamily': 'Carter One, cursive' }} onClick={goToRegister}>REGISTER</Button>
+            </Navbar>
+            <Carousel>
                 <Carousel.Item interval={2000}>
                     <img
                         className="d-block w-100 h-100"
@@ -141,6 +136,6 @@ export default function HomePage(){
                     />
                 </Carousel.Item>
             </Carousel>
-      </React.Fragment>
+        </React.Fragment>
     )
 }
