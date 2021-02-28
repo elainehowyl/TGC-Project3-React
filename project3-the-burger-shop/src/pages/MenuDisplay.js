@@ -16,16 +16,24 @@ export default function CategoriesMenu() {
 
     const [apiFoods, setApiFoods] = useState([]);
     const [show, setShow] = useState(false);
-    const [food, setFood] = useState({})
-    const [quantity, setQuantity] = useState(0)
+    const [food, setFood] = useState({});
+    const [quantity, setQuantity] = useState(0);
+    const [hasError, setError] = useState(false);
+    // const [sendToCart, setSendToCart] = useState({
+    //     'foodId':'',
+    //     'foodName':'',
+    //     'quantity':0,
+    //     'price':0,
+    // });
+    const [cart, setCart] = useState([])
 
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
+    // let cart = []
 
     function handleClose() {
         setQuantity(0);
         setShow(false);
     }
+
     function handleShow(food_id) {
         setShow(true);
         for (let eachFood of apiFoods) {
@@ -34,6 +42,42 @@ export default function CategoriesMenu() {
             }
         }
     }
+
+    function setUpCart(){
+        setError(false);
+        if(quantity !== 0){
+            let sendToCart = {
+              foodId: food.id,
+              foodName: food.name,
+              quantity: quantity,
+              price: food.price,
+            }
+            setCart([
+                ...cart,
+                sendToCart
+            ])
+            handleClose()
+        }
+        if(quantity === 0){
+            setError(true)
+        }
+        // else{
+        //     setError(true);
+        // }
+    }
+
+   async function addToCart(){
+        setUpCart()
+        console.log("EVERYTHING IN CART NOW: ", cart)
+    }
+
+    // function addToCart(){
+    //     ()=>{
+    //         setUpCart();
+    //     }
+    //     handleClose();
+    //     console.log("EVERYTHING IN CART NOW: ", cart)
+    // }
 
     const history = useHistory();
 
@@ -86,19 +130,20 @@ export default function CategoriesMenu() {
                                     setQuantity(quantity-1)
                                 }
                             }}> - </Button>
-                            <Form.Control value={quantity} style={{ width: '75px', textAlign: 'center' }}></Form.Control>
+                            <Form.Control value={quantity} style={{ width:'75px', textAlign: 'center' }}></Form.Control>
                             <Button onClick={()=>{
                                 setQuantity(quantity+1)
                             }}> + </Button>
                         </Form.Group>
                     </Form>
+                    {hasError ? (<div style={{color:'red', textAlign:'center'}}>Please select quantity.</div>) : '' }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Add to Cart
+                    <Button variant="primary" onClick={addToCart}>
+                        Add
                     </Button>
                 </Modal.Footer>
             </Modal>
