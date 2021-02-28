@@ -10,21 +10,29 @@ import {
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 export default function CategoriesMenu() {
 
     const [apiFoods, setApiFoods] = useState([]);
     const [show, setShow] = useState(false);
-    // const [food, set]
+    const [food, setFood] = useState({})
+    const [quantity, setQuantity] = useState(0)
 
     // const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
 
-    function handleClose(){
+    function handleClose() {
+        setQuantity(0);
         setShow(false);
     }
-    function handleShow(food_id){
+    function handleShow(food_id) {
         setShow(true);
+        for (let eachFood of apiFoods) {
+            if (food_id === eachFood.id) {
+                setFood(eachFood)
+            }
+        }
     }
 
     const history = useHistory();
@@ -53,7 +61,7 @@ export default function CategoriesMenu() {
                                     <p>Price: ${(food.price / 100).toFixed(2)}</p>
                                 </Card.Text>
                                 <div style={{ textAlign: "center" }}>
-                                    <Button variant="outline-success" onClick={handleShow}>Add To Cart</Button>
+                                    <Button variant="outline-success" onClick={() => handleShow(food.id)}>Add To Cart</Button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -66,6 +74,34 @@ export default function CategoriesMenu() {
 
     return (
         <React.Fragment>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{food.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form className="d-flex justify-content-center">
+                        <Form.Group className="d-flex">
+                            <Button onClick={()=>{
+                                if(quantity !== 0){
+                                    setQuantity(quantity-1)
+                                }
+                            }}> - </Button>
+                            <Form.Control value={quantity} style={{ width: '75px', textAlign: 'center' }}></Form.Control>
+                            <Button onClick={()=>{
+                                setQuantity(quantity+1)
+                            }}> + </Button>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Add to Cart
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Switch>
                 <Route exact path="/menu">
                     {renderFood("Breakfast")}
@@ -92,20 +128,6 @@ export default function CategoriesMenu() {
                     {renderFood("Sides")}
                 </Route>
             </Switch>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Food</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </React.Fragment>
     )
 }
