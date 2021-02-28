@@ -10,11 +10,10 @@ import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import HomePage from './pages/HomePage';
-import Testing2 from './pages/Testing2';
 import UserRegister from './pages/UserRegister';
-import Testing from './pages/Testing';
 import MenuPage from './pages/MenuPage';
 import UserAddresses from './pages/UserAddresses';
+import OrderSummary from './pages/OrderSummary';
 
 function App() {
   return (
@@ -33,11 +32,8 @@ function App() {
               <Route path="/menu">
                 <MenuPage/>
               </Route>
-              <Route path="/testing2">
-                <Testing2/>
-              </Route>
-              <Route exact path="/testing">
-                <Testing/>
+              <Route path="/ordersummary">
+                <OrderSummary/>
               </Route>
           </Switch>
       </Router>

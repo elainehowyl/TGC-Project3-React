@@ -43,7 +43,11 @@ export default function CategoriesMenu() {
         }
     }
 
-    function setUpCart(){
+    useEffect(()=>{
+        addToCart()
+    },[cart])
+
+   const addToCart = () => {
         setError(false);
         if(quantity !== 0){
             let sendToCart = {
@@ -61,23 +65,17 @@ export default function CategoriesMenu() {
         if(quantity === 0){
             setError(true)
         }
-        // else{
-        //     setError(true);
-        // }
+        localStorage.setItem('cartAll', JSON.stringify(cart))
+        // console.log("EVERYTHING IN CART NOW: ", cart)
     }
 
-   async function addToCart(){
-        setUpCart()
-        console.log("EVERYTHING IN CART NOW: ", cart)
-    }
-
-    // function addToCart(){
-    //     ()=>{
-    //         setUpCart();
-    //     }
-    //     handleClose();
-    //     console.log("EVERYTHING IN CART NOW: ", cart)
-    // }
+//    function addToCart(){
+//         setUpCart()
+//         localStorage.setItem('cartAll', JSON.stringify(cart))
+//         let fetchLocal = JSON.parse(localStorage.getItem('cartAll'))
+//         console.log("Fetch Local: ", fetchLocal)
+//         // console.log("EVERYTHING IN CART NOW: ", cart)
+//     }
 
     const history = useHistory();
 
@@ -142,7 +140,7 @@ export default function CategoriesMenu() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={addToCart}>
+                    <Button variant="primary" onClick={()=> addToCart()}>
                         Add
                     </Button>
                 </Modal.Footer>

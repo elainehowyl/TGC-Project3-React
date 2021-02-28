@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { CartFill } from 'react-bootstrap-icons';
 
@@ -28,17 +28,17 @@ export default function MenuPage() {
 
     // localStorage.setItem('foodOrder', '')
 
-    const testing = JSON.parse(localStorage.getItem('fetchedProfile'))
-    const testing2 = localStorage.getItem('fetchedSelectedAddressId')
-    console.log(testing)
-    console.log(testing2)
+    // const testing = JSON.parse(localStorage.getItem('fetchedProfile'))
+    // const testing2 = localStorage.getItem('fetchedSelectedAddressId')
+    // console.log(testing)
+    // console.log(testing2)
 
     function showCart() {
-        alert("Show Cart")
+        history.push('/ordersummary')
     }
     return (
         <React.Fragment>
-            <Navbar bg="danger">
+            <Navbar bg="dark">
                 <Navbar.Brand className="mr-5">
                     <img
                         src="./images/burger_shop_logo.png"
@@ -49,7 +49,8 @@ export default function MenuPage() {
                     />
                 </Navbar.Brand>
                 <div id="menu-bar">
-                    <Button onClick={showCart} variant="danger">
+                    <Button onClick={showCart} variant="dark">
+                        <p style={{color:'red', fontSize:'30px', fontWeight:'bold', position:'absolute', left:'19%', top:'23%'}}>0</p>
                         <CartFill style={{ color: "white", width: "40px", height: "40px" }} />
                     </Button>
                 </div>
