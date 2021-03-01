@@ -4,6 +4,7 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 export default function OrderSummary() {
 
@@ -44,9 +45,9 @@ export default function OrderSummary() {
                         <div>
                             <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Customer Details: </h3>
                             <div>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Name: {userProfile.first_name} {userProfile.last_name}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Email: {userProfile.email}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Contact Number: {userProfile.contact_number}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}><span style={{fontWeight:'bold'}}>Name: </span>  {userProfile.first_name} {userProfile.last_name}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}><span style={{fontWeight:'bold'}}>Email: </span>  {userProfile.email}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}><span style={{fontWeight:'bold'}}>Contact Number: </span>  {userProfile.contact_number}</p>
                             </div>
                         </div>
                     </Card.Body>
@@ -70,6 +71,7 @@ export default function OrderSummary() {
                                     </tr>
                                 </tbody>
                             </Table>
+                            <Button>Submit Order</Button>
                         </div>
                     </Card.Body>
                 </Card>
