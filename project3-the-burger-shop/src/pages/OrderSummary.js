@@ -113,8 +113,9 @@ export default function OrderSummary() {
                                     </tr>
                                 </tbody>
                             </Table>
+                            <div></div>
                             <div className="d-flex justify-content-end">
-                                <Button variant="secondary">Make Payment</Button>
+                                <Button variant="warning" style={{ fontSize: '20px', fontFamily: 'Carter One, cursive'}}>CheckOut</Button>
                             </div>
                         </div>
                     </Card.Body>
