@@ -15,23 +15,21 @@ export default function OrderSummary() {
     let fetchCart = JSON.parse(localStorage.getItem('cartAll'))
     console.log("Fetch Cart: ", fetchCart)
 
+    let totalPrice = 0
+    for(let item of fetchCart){
+        totalPrice += item.price*item.quantity 
+    }
+
     function renderOrders() {
         let jsx = []
         for (let item of fetchCart) {
             jsx.push(
                 <React.Fragment>
-                        <tbody>
-                            <tr>
-                                <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>{item.foodName}</td>
-                                <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>X {item.quantity}</td>
-                                <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>${(item.price*item.quantity / 100).toFixed(2)}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
+                    <tr>
+                        <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>{item.foodName}</td>
+                        <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>X {item.quantity}</td>
+                        <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>${(item.price * item.quantity / 100).toFixed(2)}</td>
+                    </tr>
                 </React.Fragment>
             )
         }
@@ -46,24 +44,31 @@ export default function OrderSummary() {
                         <div>
                             <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Customer Details: </h3>
                             <div>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}>Name: {userProfile.first_name} {userProfile.last_name}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}>Email: {userProfile.email}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}>Contact Number: {userProfile.contact_number}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Name: {userProfile.first_name} {userProfile.last_name}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Email: {userProfile.email}</p>
+                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif'}}>Contact Number: {userProfile.contact_number}</p>
                             </div>
                         </div>
                     </Card.Body>
                     <Card.Body>
                         <div>
                             <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Order Details: </h3>
-                            <Table>
+                            <Table striped>
                                 <thead>
                                     <tr>
-                                        <th style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Food Item</th>
-                                        <th style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Quantity</th>
-                                        <th style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Price</th>
+                                        <th>Food Item</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
                                     </tr>
                                 </thead>
-                                {renderOrders()}
+                                <tbody>
+                                    {renderOrders()}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td style={{fontWeight:'bold'}}>${(totalPrice/100).toFixed(2)}</td>
+                                    </tr>
+                                </tbody>
                             </Table>
                         </div>
                     </Card.Body>
