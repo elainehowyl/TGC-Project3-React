@@ -26,6 +26,7 @@ export default function CategoriesMenu() {
     //     'price':0,
     // });
     const [cart, setCart] = useState([])
+    // const [count, setCount] = useState(0)
 
     // let cart = []
 
@@ -48,8 +49,9 @@ export default function CategoriesMenu() {
     },[cart])
 
    const addToCart = () => {
-        setError(false);
+        // setError(false);
         if(quantity !== 0){
+            console.log(quantity)
             let sendToCart = {
               foodId: food.id,
               foodName: food.name,
@@ -62,9 +64,11 @@ export default function CategoriesMenu() {
             ])
             handleClose()
         }
-        if(quantity === 0){
-            setError(true)
-        }
+        // if(quantity === 0 && count < 2){
+        //     setError(true)
+        // }
+        // console.log(count)
+        // setCount(count+1)
         localStorage.setItem('cartAll', JSON.stringify(cart))
         // console.log("EVERYTHING IN CART NOW: ", cart)
     }
@@ -124,7 +128,7 @@ export default function CategoriesMenu() {
                     <Form className="d-flex justify-content-center">
                         <Form.Group className="d-flex">
                             <Button onClick={()=>{
-                                if(quantity !== 0){
+                                if(quantity > 0){
                                     setQuantity(quantity-1)
                                 }
                             }}> - </Button>
@@ -134,7 +138,6 @@ export default function CategoriesMenu() {
                             }}> + </Button>
                         </Form.Group>
                     </Form>
-                    {hasError ? (<div style={{color:'red', textAlign:'center'}}>Please select quantity.</div>) : '' }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

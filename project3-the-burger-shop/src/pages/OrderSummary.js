@@ -1,4 +1,7 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
+
+import Card from 'react-bootstrap/Card';
 
 export default function OrderSummary(){
 
@@ -10,6 +13,8 @@ export default function OrderSummary(){
     let fetchCart = JSON.parse(localStorage.getItem('cartAll'))
     console.log("Fetch Cart: ", fetchCart)
     return (
-        <h1>HELLO WORLD</h1>
+        <React.Fragment>
+            <Card></Card>
+        </React.Fragment>
     )
 }

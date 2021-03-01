@@ -50,7 +50,6 @@ export default function MenuPage() {
                 </Navbar.Brand>
                 <div id="menu-bar">
                     <Button onClick={showCart} variant="dark">
-                        <p style={{color:'red', fontSize:'30px', fontWeight:'bold', position:'absolute', left:'19%', top:'23%'}}>0</p>
                         <CartFill style={{ color: "white", width: "40px", height: "40px" }} />
                     </Button>
                 </div>
