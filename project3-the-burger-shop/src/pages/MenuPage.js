@@ -2,8 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { CartFill } from 'react-bootstrap-icons';
 
-import '../styles/MenuPage.css';
-
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
@@ -29,17 +27,17 @@ export default function MenuPage() {
                         alt="The Burger Shop Logo"
                     />
                 </Navbar.Brand>
-                <div id="menu-bar">
+                <div className="d-flex justify-content-end">
                     <Button onClick={showCart} variant="dark">
                         <CartFill style={{ color: "white", width: "40px", height: "40px" }} />
                     </Button>
                 </div>
             </Navbar>
-            <div id="main-menu">
+            <div className="d-flex">
                 <div style={{ width: "20%", backgroundColor: "#ffc107" }}>
                     <CategoriesBar />
                 </div>
-                <div id="menu-container">
+                <div style={{width:'80%'}} className="d-flex flex-wrap">
                     <MenuDisplay />
                 </div>
             </div>
