@@ -51,7 +51,6 @@ export default function CategoriesMenu() {
    const addToCart = () => {
         // setError(false);
         if(quantity !== 0){
-            console.log(quantity)
             let sendToCart = {
               foodId: food.id,
               foodName: food.name,

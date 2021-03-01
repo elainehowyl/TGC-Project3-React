@@ -165,7 +165,7 @@ export default function UserAddresses(){
                 </div>
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
-                    <Modal.Title>Add Address</Modal.Title>
+                    <Modal.Title style={{fontSize:'40px', fontFamily:'Carter One, cursive'}}>Add Address</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                       <Form method="POST">
