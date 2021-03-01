@@ -4,7 +4,6 @@ import axios from 'axios';
 import {
     Switch,
     Route,
-    useHistory,
 } from "react-router-dom";
 
 import Card from 'react-bootstrap/Card';
@@ -18,18 +17,9 @@ export default function CategoriesMenu(props) {
     const [show, setShow] = useState(false);
     const [food, setFood] = useState({});
     const [quantity, setQuantity] = useState(0);
-    const [hasError, setError] = useState(false);
-    // const [sendToCart, setSendToCart] = useState({
-    //     'foodId':'',
-    //     'foodName':'',
-    //     'quantity':0,
-    //     'price':0,
-    // });
+   
     const [cart, setCart] = useState([])
-    // const [count, setCount] = useState(0)
-
-    // let cart = []
-
+    
     function handleClose() {
         setQuantity(0);
         setShow(false);
@@ -49,7 +39,6 @@ export default function CategoriesMenu(props) {
     },[cart])
 
    const addToCart = () => {
-        // setError(false);
         if(quantity !== 0){
             let sendToCart = {
               foodId: food.id,
@@ -63,24 +52,8 @@ export default function CategoriesMenu(props) {
             ])
             handleClose()
         }
-        // if(quantity === 0 && count < 2){
-        //     setError(true)
-        // }
-        // console.log(count)
-        // setCount(count+1)
         localStorage.setItem('cartAll', JSON.stringify(cart))
-        // console.log("EVERYTHING IN CART NOW: ", cart)
     }
-
-//    function addToCart(){
-//         setUpCart()
-//         localStorage.setItem('cartAll', JSON.stringify(cart))
-//         let fetchLocal = JSON.parse(localStorage.getItem('cartAll'))
-//         console.log("Fetch Local: ", fetchLocal)
-//         // console.log("EVERYTHING IN CART NOW: ", cart)
-//     }
-
-    const history = useHistory();
 
     useEffect(() => {
         fetchApi();

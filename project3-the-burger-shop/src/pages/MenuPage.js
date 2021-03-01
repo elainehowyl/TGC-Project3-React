@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { CartFill } from 'react-bootstrap-icons';
 
@@ -10,30 +10,9 @@ import Button from 'react-bootstrap/Button';
 import CategoriesBar from './CategoriesBar';
 import MenuDisplay from './MenuDisplay';
 
-// import UserContext from '../context/UserContext';
-
 export default function MenuPage() {
 
     const history = useHistory()
-    const [cartQuantity, setCartQuantity] = useState(0)
-
-    // let address_id = location.state.selectedAddress_id
-    // let profile = location.state.profile
-
-    // const sharedProfile = {
-    //     address_id,
-    //     profile
-    // }
-
-    // console.log("Shared Profile: ", sharedProfile)
-
-    // localStorage.setItem('foodOrder', '')
-
-    // const testing = JSON.parse(localStorage.getItem('fetchedProfile'))
-    // const testing2 = localStorage.getItem('fetchedSelectedAddressId')
-    // console.log(testing)
-    // console.log(testing2)
-
 
     function showCart() {
         history.push('/ordersummary')
@@ -67,39 +46,4 @@ export default function MenuPage() {
         </React.Fragment>
     )
 }
-
-
-
-// export default class MenuPage extends React.Component{
-//     render(){
-//         return(
-//             <React.Fragment>
-//                 <Navbar bg="danger">
-//                     <Navbar.Brand className="mr-5">
-//                       <img
-//                          src="./images/burger_shop_logo.png"
-//                          width="120"
-//                          height="100"
-//                          className="d-inline-block align-top"
-//                          alt="The Burger Shop Logo"
-//                        />
-//                     </Navbar.Brand>
-//                     <div id="menu-bar">
-//                      <Button onClick={this.cartPopOut} variant="danger">
-//                       <CartFill style={{color:"white", width:"40px", height:"40px"}}/>
-//                      </Button>
-//                     </div>
-//                 </Navbar>
-//                 <div id="main-menu">
-//                     <div style={{width:"20%", backgroundColor:"#ffc107"}}>
-//                        <CategoriesBar/>
-//                     </div>
-//                     <div id="menu-container">
-//                        <MenuDisplay/>
-//                     </div>
-//                 </div>
-//             </React.Fragment>
-//         )
-//     }
-// }
 

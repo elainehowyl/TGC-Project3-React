@@ -10,10 +10,6 @@ import Form from 'react-bootstrap/Form';
 export default function OrderSummary() {
 
     const [endCart, updateCart] = useState([])
-    // const [individualCart, updateIndividualCart] = useState({
-    //     quantity:0,
-    // })
-    // const [individualQuantity, updateQuantity] = useState({})
 
     const userProfile = JSON.parse(localStorage.getItem('fetchedProfile'))
     const userAddressId = localStorage.getItem('fetchedSelectedAddressId')
@@ -42,12 +38,6 @@ export default function OrderSummary() {
                 }
             }
         }
-        // for(let item of fetchCart){
-        //     if(item_id === item.id){
-        //         item.quantity = individualQuantity - 1
-        //         updateQuantity(item.quantity)
-        //     }
-        // }
     }
 
     function addToQuantity(item_id) {
@@ -88,14 +78,16 @@ export default function OrderSummary() {
         <React.Fragment>
             <Container>
                 <Card>
-                    <Card.Header style={{ fontSize: '40px', fontFamily: 'Carter One, cursive', backgroundColor: '#343a40', color: 'white' }}>Order Review</Card.Header>
+                    <Card.Header style={{ fontSize: '40px', fontFamily: 'Carter One, cursive', backgroundColor: '#343a40', color: 'white' }}>
+                        <h2 className="mt-5 mb-5">Order Review</h2>
+                    </Card.Header>
                     <Card.Body>
                         <div>
-                            <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Customer Details: </h3>
+                            <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Customer Details: </h3><br></br>
                             <div>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Name: </span>  {userProfile.first_name} {userProfile.last_name}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Email: </span>  {userProfile.email}</p>
-                                <p style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Contact Number: </span>  {userProfile.contact_number}</p>
+                                <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Name: </span>  {userProfile.first_name} {userProfile.last_name}</p>
+                                <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Email: </span>  {userProfile.email}</p>
+                                <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Contact Number: </span>  {userProfile.contact_number}</p>
                             </div>
                         </div>
                     </Card.Body>

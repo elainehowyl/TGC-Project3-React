@@ -12,9 +12,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
-// import UserContext from '../context/UserContext';
-// import UserRegister from './UserRegister';
-
 
 const BASE_API_URL = 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api'
 
@@ -24,10 +21,7 @@ export default function HomePage() {
     const [form, setForm] = useState({
         'email': "",
         'password': "",
-        // 'token': ""
     })
-
-    // const [profile, setProfile] = useState({})
 
     const history = useHistory();
 
@@ -44,22 +38,7 @@ export default function HomePage() {
             'password': form.password
         });
         if (response.data.token) {
-            // testing if i am able to fetch user's profile
-            // yes i can
-            // form.token = response.data.token
-            // let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {
-            //    headers:{
-            //       Authorization: `Bearer ${response.data.token}`
-            //    }
-            // })
-            // setProfile(userProfile.data)
-            // console.log("Look here: ", userProfile.data)
-            // console.log("From profileState: ", profile)
-            // console.log("Fetch User Profile: ", userProfile.data)
-            // history.push('/menu')
-            // console.log(userProfile.data.id)
             history.push('/useraddresses', {
-                // profileId:userProfile.data.id,
                 token: response.data.token
             })
         }

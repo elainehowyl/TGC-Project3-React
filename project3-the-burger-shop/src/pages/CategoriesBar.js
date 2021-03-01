@@ -7,17 +7,11 @@ import {
 
 import Button from 'react-bootstrap/Button';
 
-// import UserContext from '../context/UserContext';
-
 export default function MenuBar(){
 
     const [categories, setCategories] = useState([]);
 
     const history = useHistory();
-
-    // const context = useContext(UserContext)
-    // console.log("CONTEXT PROFILE: ", context.profile)
-    // console.log("CONTEXT ADDRESS: ", context.address_id)
 
     useEffect(() => {
         fetchApi();

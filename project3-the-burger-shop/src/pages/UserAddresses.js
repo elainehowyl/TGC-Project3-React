@@ -64,18 +64,6 @@ export default function UserAddresses(){
         })
     }
 
-    // function fetchUserAddress(){
-    //     profile.first_name = fetchedProfile.first_name
-    //     profile.last_name = fetchedProfile.last_name
-    //     for(let address of fetchedProfile.addresses){
-    //         let index = (fetchedProfile.addresses.indexOf(address)) + 1
-    //         let addressKeyName = "address_"
-    //         let addressFullKeyName = addressKeyName.concat(index)
-    //         profile[`${addressFullKeyName}`] = address
-    //     }
-    //     console.log(profile)
-    // }
-
     function updateFormField(event) {
         setAddressForm({
             ...addressForm,
@@ -86,7 +74,6 @@ export default function UserAddresses(){
     function goToMenu(selectedAddress_id){
         localStorage.setItem('fetchedProfile', JSON.stringify(profile))
         localStorage.setItem('fetchedSelectedAddressId', selectedAddress_id)
-        // console.log("Profile from state: ", profile)
         history.push('/menu')
     }
 
@@ -153,14 +140,14 @@ export default function UserAddresses(){
         <React.Fragment>
             <Container className="d-flex justify-content-center flex-column align-items-center">
                 <div>
-                 <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#dc3545', color:'white'}} className="d-flex flex-column align-items-center">
+                 <Card.Header style={{fontSize:'40px', fontFamily:'Carter One, cursive', backgroundColor:'#343a40', color:'white'}} className="d-flex flex-column align-items-center">
                     <img src='./images/burger_shop_logo.png' alt="burger shop logo" width="40%"/>
                     <h3 className="m-3">Welcome back, {profile.first_name} {profile.last_name}</h3>
                     <h6>Where would you like us to deliver your food to?</h6>
                  </Card.Header>
                  {renderUserAddresses()}
-                 <Card.Footer className="d-flex justify-content-center" style={{backgroundColor:'#dc3545'}}>
-                    <Button variant="danger" onClick={handleShow} style={{fontSize:'40px', fontFamily:'Carter One, cursive'}}> + </Button>
+                 <Card.Footer className="d-flex justify-content-center" style={{backgroundColor:'#343a40'}}>
+                    <Button variant="dark" onClick={handleShow} style={{fontSize:'40px', fontFamily:'Carter One, cursive'}}> + </Button>
                  </Card.Footer>
                 </div>
                 <Modal show={show} onHide={handleClose}>
