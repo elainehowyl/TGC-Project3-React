@@ -32,7 +32,7 @@ function App() {
               <Route path="/menu">
                 <MenuPage/>
               </Route>
-              <Route path="/ordersummary">
+              <Route exact path="/ordersummary">
                 <OrderSummary/>
               </Route>
           </Switch>

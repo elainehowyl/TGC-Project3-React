@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-export default function CategoriesMenu() {
+export default function CategoriesMenu(props) {
 
     const [apiFoods, setApiFoods] = useState([]);
     const [show, setShow] = useState(false);

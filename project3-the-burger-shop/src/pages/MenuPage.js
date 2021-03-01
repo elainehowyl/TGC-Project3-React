@@ -15,6 +15,7 @@ import MenuDisplay from './MenuDisplay';
 export default function MenuPage() {
 
     const history = useHistory()
+    const [cartQuantity, setCartQuantity] = useState(0)
 
     // let address_id = location.state.selectedAddress_id
     // let profile = location.state.profile
@@ -32,6 +33,7 @@ export default function MenuPage() {
     // const testing2 = localStorage.getItem('fetchedSelectedAddressId')
     // console.log(testing)
     // console.log(testing2)
+
 
     function showCart() {
         history.push('/ordersummary')

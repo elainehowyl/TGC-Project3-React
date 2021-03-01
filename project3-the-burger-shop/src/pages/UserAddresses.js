@@ -45,7 +45,7 @@ export default function UserAddresses(){
 
     useEffect(() => {
         fetchUserAddress()
-    },[])
+    },[profile])
 
     async function fetchUserAddress(){
         let userProfile = await axios.get(`${BASE_API_URL}/user/profile`, {

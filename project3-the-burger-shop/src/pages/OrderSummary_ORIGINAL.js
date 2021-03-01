@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -9,12 +9,6 @@ import Form from 'react-bootstrap/Form';
 
 export default function OrderSummary() {
 
-    const [endCart, updateCart] = useState([])
-    // const [individualCart, updateIndividualCart] = useState({
-    //     quantity:0,
-    // })
-    // const [individualQuantity, updateQuantity] = useState({})
-
     const userProfile = JSON.parse(localStorage.getItem('fetchedProfile'))
     const userAddressId = localStorage.getItem('fetchedSelectedAddressId')
     console.log("User Profile: ", userProfile)
@@ -23,58 +17,17 @@ export default function OrderSummary() {
     let fetchCart = JSON.parse(localStorage.getItem('cartAll'))
     console.log("Fetch Cart: ", fetchCart)
 
-    useEffect(() => {
-        updateCart(fetchCart)
-    }, [])
-
     let totalPrice = 0
-    for (let item of endCart) {
+    for (let item of fetchCart) {
         totalPrice += item.price * item.quantity
-    }
-
-    function deductFromQuantity(item_id) {
-        let endCart2 = [...endCart]
-        for (let item of endCart2) {
-            if (item.quantity > 0) {
-                if (item_id === item.foodId) {
-                    item.quantity = item.quantity - 1
-                    updateCart(endCart2)
-                }
-            }
-        }
-        // for(let item of fetchCart){
-        //     if(item_id === item.id){
-        //         item.quantity = individualQuantity - 1
-        //         updateQuantity(item.quantity)
-        //     }
-        // }
-    }
-
-    function addToQuantity(item_id) {
-        let endCart2 = [...endCart]
-        for (let item of endCart2) {
-            if (item_id === item.foodId) {
-                item.quantity = item.quantity + 1
-                updateCart(endCart2)
-            }
-        }
     }
 
     function renderOrders() {
         let jsx = []
-        for (let item of endCart) {
+        for (let item of fetchCart) {
             jsx.push(
                 <React.Fragment>
                     <tr>
-                        <td>
-                            <Form className="d-flex justify-content-center">
-                                <Form.Group className="d-flex">
-                                    <Button onClick={() => deductFromQuantity(item.foodId)}> - </Button>
-                                    <Form.Control value={item.quantity} style={{ width: '75px', textAlign: 'center' }}></Form.Control>
-                                    <Button onClick={() => addToQuantity(item.foodId)}> + </Button>
-                                </Form.Group>
-                            </Form>
-                        </td>
                         <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>{item.foodName}</td>
                         <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>X {item.quantity}</td>
                         <td style={{ fontSize: '20px', fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>${(item.price * item.quantity / 100).toFixed(2)}</td>
@@ -105,7 +58,6 @@ export default function OrderSummary() {
                             <Table striped>
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Food Item</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
@@ -114,7 +66,6 @@ export default function OrderSummary() {
                                 <tbody>
                                     {renderOrders()}
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td style={{ fontWeight: 'bold' }}>${(totalPrice / 100).toFixed(2)}</td>
