@@ -56,6 +56,18 @@ export default function OrderSummary() {
         }
     }
 
+    function removeFromCart(item_id){
+        let endCart2 = [...endCart]
+        let index = 0
+        for (let item of endCart2){
+            if(item_id === item.foodId){
+                endCart2.splice(index,1)
+                updateCart(endCart2)
+            }
+            index++
+        }
+    }
+
     function sendOrder(){
         console.log("DOES ENDING CART MATCHES WITH ORDER?: ", endCart)
     }
@@ -67,7 +79,7 @@ export default function OrderSummary() {
                 <React.Fragment>
                     <tr>
                         <td>
-                            <Button variant="danger">Remove from Cart</Button>
+                            <Button variant="danger" onClick={() => removeFromCart(item.foodId)}>Remove from Cart</Button>
                         </td>
                         <td>
                             <Form className="d-flex justify-content-center">
