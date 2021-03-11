@@ -67,6 +67,9 @@ export default function OrderSummary() {
                 <React.Fragment>
                     <tr>
                         <td>
+                            <Button variant="danger">Remove from Cart</Button>
+                        </td>
+                        <td>
                             <Form className="d-flex justify-content-center">
                                 <Form.Group className="d-flex">
                                     <Button onClick={() => deductFromQuantity(item.foodId)}> - </Button>
@@ -119,6 +122,7 @@ export default function OrderSummary() {
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th></th>
                                         <th>Food Item</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
@@ -127,6 +131,7 @@ export default function OrderSummary() {
                                 <tbody>
                                     {renderOrders()}
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
