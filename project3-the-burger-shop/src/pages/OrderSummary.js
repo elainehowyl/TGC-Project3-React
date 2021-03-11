@@ -12,12 +12,18 @@ export default function OrderSummary() {
     const [endCart, updateCart] = useState([])
 
     const userProfile = JSON.parse(localStorage.getItem('fetchedProfile'))
-    const userAddressId = localStorage.getItem('fetchedSelectedAddressId')
+    const userSelectedAddress = JSON.parse(localStorage.getItem('fetchedSelectedAddress'))
+    // const userAddressId = localStorage.getItem('fetchedSelectedAddressId')
     console.log("User Profile: ", userProfile)
-    console.log("User Address Id: ", userAddressId)
+    console.log("User Selected Address: ", userSelectedAddress)
+    // console.log("User Address Id: ", userAddressId)
 
     let fetchCart = JSON.parse(localStorage.getItem('cartAll'))
     console.log("Fetch Cart: ", fetchCart)
+
+    // for(let eachAddress of userProfile.addresses){
+    //     if(eachAddress.id === userAddressId)
+    // }
 
     useEffect(() => {
         updateCart(fetchCart)
@@ -88,6 +94,17 @@ export default function OrderSummary() {
                                 <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Name: </span>  {userProfile.first_name} {userProfile.last_name}</p>
                                 <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Email: </span>  {userProfile.email}</p>
                                 <p style={{ fontSize: '25px', fontFamily: 'Public Sans, sans-serif' }}><span style={{ fontWeight: 'bold' }}>Contact Number: </span>  {userProfile.contact_number}</p>
+                            </div>
+                        </div>
+                    </Card.Body>
+                    <Card.Body>
+                        <div>
+                            <h3 style={{ fontFamily: 'Public Sans, sans-serif', fontWeight: 'bold' }}>Deliver to: </h3><br></br>
+                            <div>
+                                <p style={{fontSize:'25px', fontFamily: 'Public Sans, sans-serif'}}>{userSelectedAddress.street_name}{userSelectedAddress.block_number ? ', Blk' : ''} {userSelectedAddress.block_number}</p>
+                                <p style={{fontSize:'25px', fontFamily: 'Public Sans, sans-serif'}}>#{userSelectedAddress.unit_number}</p>
+                                <p style={{fontSize:'25px', fontFamily: 'Public Sans, sans-serif'}}>{userSelectedAddress.building_name}</p>
+                                <p style={{fontSize:'25px', fontFamily: 'Public Sans, sans-serif'}}>Postal Code: {userSelectedAddress.postal_code}</p>
                             </div>
                         </div>
                     </Card.Body>

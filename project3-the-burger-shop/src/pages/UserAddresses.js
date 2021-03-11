@@ -73,7 +73,12 @@ export default function UserAddresses(){
 
     function goToMenu(selectedAddress_id){
         localStorage.setItem('fetchedProfile', JSON.stringify(profile))
-        localStorage.setItem('fetchedSelectedAddressId', selectedAddress_id)
+        for(let eachAddress of profile.addresses){
+            if(eachAddress.id === selectedAddress_id){
+                localStorage.setItem('fetchedSelectedAddress', JSON.stringify(eachAddress))
+            }
+        }
+        // localStorage.setItem('fetchedSelectedAddressId', selectedAddress_id)
         history.push('/menu')
     }
 
