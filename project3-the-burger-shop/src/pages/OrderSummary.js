@@ -18,12 +18,10 @@ export default function OrderSummary() {
     console.log("User Selected Address: ", userSelectedAddress)
     // console.log("User Address Id: ", userAddressId)
 
-    let fetchCart = JSON.parse(localStorage.getItem('cartAll'))
+    const fetchCart = JSON.parse(localStorage.getItem('cartAll'))
     console.log("Fetch Cart: ", fetchCart)
 
-    // for(let eachAddress of userProfile.addresses){
-    //     if(eachAddress.id === userAddressId)
-    // }
+    const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api';
 
     useEffect(() => {
         updateCart(fetchCart)
@@ -68,8 +66,23 @@ export default function OrderSummary() {
         }
     }
 
-    function sendOrder(){
-        console.log("DOES ENDING CART MATCHES WITH ORDER?: ", endCart)
+    async function sendOrder(){
+        for(let eachCart of endCart){
+            let newOrder = {
+                'user_id':userProfile.id,
+                'address_id':userSelectedAddress.id,
+                'total_price':totalPrice,
+                'food_id':eachCart.foodId,
+                'quantity':eachCart.quantity,
+            }
+            await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
+                headers:{
+                    Authorization: `Bearer ${userProfile.token}`
+                },
+            })
+        }
+        // console.log("DOES ENDING CART MATCHES WITH ORDER?: ", endCart)
+        alert("Orders sent successfully!")
     }
 
     function renderOrders() {
