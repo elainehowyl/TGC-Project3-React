@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -9,17 +10,19 @@ import Form from 'react-bootstrap/Form';
 
 export default function OrderSummary() {
 
+    const history = useHistory();
+
     const [endCart, updateCart] = useState([])
 
     const userProfile = JSON.parse(localStorage.getItem('fetchedProfile'))
     const userSelectedAddress = JSON.parse(localStorage.getItem('fetchedSelectedAddress'))
     // const userAddressId = localStorage.getItem('fetchedSelectedAddressId')
-    console.log("User Profile: ", userProfile)
-    console.log("User Selected Address: ", userSelectedAddress)
+    // console.log("User Profile: ", userProfile)
+    // console.log("User Selected Address: ", userSelectedAddress)
     // console.log("User Address Id: ", userAddressId)
 
     const fetchCart = JSON.parse(localStorage.getItem('cartAll'))
-    console.log("Fetch Cart: ", fetchCart)
+    // console.log("Fetch Cart: ", fetchCart)
 
     const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api';
 
@@ -67,11 +70,22 @@ export default function OrderSummary() {
     }
 
     async function sendOrder(){
+        let newCart = {
+            'user_id':userProfile.id,
+            'address_id':userSelectedAddress.id,
+            'duplicate_address':JSON.stringify(userSelectedAddress),
+            'duplicate_orders':JSON.stringify(endCart)
+        }
+        let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
+            headers:{
+                Authorization: `Bearer ${userProfile.token}`
+            }
+        })
+        console.log(response.data)
         for(let eachCart of endCart){
             let newOrder = {
                 'user_id':userProfile.id,
-                'address_id':userSelectedAddress.id,
-                'total_price':totalPrice,
+                'cart_id':response.data,
                 'food_id':eachCart.foodId,
                 'quantity':eachCart.quantity,
             }
@@ -81,8 +95,29 @@ export default function OrderSummary() {
                 },
             })
         }
-        // console.log("DOES ENDING CART MATCHES WITH ORDER?: ", endCart)
         alert("Orders sent successfully!")
+    }
+
+    // async function sendOrder(){
+    //     for(let eachCart of endCart){
+    //         let newOrder = {
+    //             'user_id':userProfile.id,
+    //             'address_id':userSelectedAddress.id,
+    //             'total_price':totalPrice,
+    //             'food_id':eachCart.foodId,
+    //             'quantity':eachCart.quantity,
+    //         }
+    //         await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
+    //             headers:{
+    //                 Authorization: `Bearer ${userProfile.token}`
+    //             },
+    //         })
+    //     }
+    //     alert("Orders sent successfully!")
+    // }
+
+    function backToMenu(){
+        history.push('/menu')
     }
 
     function renderOrders() {
@@ -92,7 +127,7 @@ export default function OrderSummary() {
                 <React.Fragment>
                     <tr>
                         <td>
-                            <Button variant="danger" onClick={() => removeFromCart(item.foodId)}>Remove from Cart</Button>
+                            <Button variant="danger" style={{ fontSize: '20px', fontFamily: 'Carter One, cursive'}} onClick={() => removeFromCart(item.foodId)}>Remove</Button>
                         </td>
                         <td>
                             <Form className="d-flex justify-content-center">
@@ -166,7 +201,8 @@ export default function OrderSummary() {
                             </Table>
                             <div></div>
                             <div className="d-flex justify-content-end">
-                                <Button variant="warning" style={{ fontSize: '20px', fontFamily: 'Carter One, cursive'}} onClick={sendOrder}>CheckOut</Button>
+                                <Button variant="warning" style={{fontSize:'20px', fontFamily:'Carter One, cursive'}} onClick={backToMenu}>Back to Menu</Button>
+                                <Button variant="success" style={{ fontSize: '20px', fontFamily: 'Carter One, cursive'}} onClick={sendOrder}>CheckOut</Button>
                             </div>
                         </div>
                     </Card.Body>
