@@ -73,8 +73,9 @@ export default function OrderSummary() {
         let newCart = {
             'user_id':userProfile.id,
             'address_id':userSelectedAddress.id,
+            'total_price':totalPrice,
             'duplicate_address':JSON.stringify(userSelectedAddress),
-            'duplicate_orders':JSON.stringify(endCart)
+            'duplicate_orders':JSON.stringify(endCart),
         }
         let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
             headers:{
