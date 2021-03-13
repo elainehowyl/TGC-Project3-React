@@ -81,7 +81,7 @@ export default function UserRegister() {
             'building_name': form.building_name,
             'postal_code': form.postal_code,
         }
-        let response = await axios.post(`${BASE_URL}/users/create`, newRegister)
+        let response = await axios.post(`${BASE_URL}/user/register`, newRegister)
         if (Array.isArray(response.data)) {
             for (let error of response.data) {
                 if (error.field === 'email') {
