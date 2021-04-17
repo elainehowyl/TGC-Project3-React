@@ -14,6 +14,7 @@ import UserRegister from './pages/UserRegister';
 import MenuPage from './pages/MenuPage';
 import UserAddresses from './pages/UserAddresses';
 import OrderSummary from './pages/OrderSummary';
+import DeliveryStatus from './pages/DeliveryStatus';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
               </Route>
               <Route exact path="/ordersummary">
                 <OrderSummary/>
+              </Route>
+              <Route exact path="/orderstatus">
+                <DeliveryStatus/>
               </Route>
           </Switch>
       </Router>

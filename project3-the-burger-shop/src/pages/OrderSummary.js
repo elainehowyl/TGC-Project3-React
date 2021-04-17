@@ -70,52 +70,46 @@ export default function OrderSummary() {
     }
 
     async function sendOrder(){
-        let newCart = {
-            'user_id':userProfile.id,
-            'address_id':userSelectedAddress.id,
-            'total_price':totalPrice,
-            'duplicate_address':JSON.stringify(userSelectedAddress),
-            'duplicate_orders':JSON.stringify(endCart),
-        }
-        let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
+        //console.log(endCart)
+        // checkout controller here
+        // not sure if this work but let's test:
+        await axios.get(`${BASE_API_URL}/checkout/checkout`, {
             headers:{
-                Authorization: `Bearer ${userProfile.token}`
+                Authorization: `Bearer ${token}`
+            },
+            params:{
+                'cart': endCart
             }
         })
-        console.log(response.data)
-        for(let eachCart of endCart){
-            let newOrder = {
-                'user_id':userProfile.id,
-                'cart_id':response.data,
-                'food_id':eachCart.foodId,
-                'quantity':eachCart.quantity,
-            }
-            await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
-                headers:{
-                    Authorization: `Bearer ${userProfile.token}`
-                },
-            })
-        }
-        alert("Orders sent successfully!")
+        // let newCart = {
+        //     'user_id':userProfile.id,
+        //     'address_id':userSelectedAddress.id,
+        //     'total_price':totalPrice,
+        //     'duplicate_address':JSON.stringify(userSelectedAddress),
+        //     'duplicate_orders':JSON.stringify(endCart),
+        // }
+        // let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
+        //     headers:{
+        //         Authorization: `Bearer ${userProfile.token}`
+        //     }
+        // })
+        // console.log(response.data)
+        // for(let eachCart of endCart){
+        //     let newOrder = {
+        //         'user_id':userProfile.id,
+        //         'cart_id':response.data,
+        //         'food_id':eachCart.foodId,
+        //         'quantity':eachCart.quantity,
+        //     }
+        //     await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
+        //         headers:{
+        //             Authorization: `Bearer ${userProfile.token}`
+        //         },
+        //     })
+        // }
+        // alert("Orders sent successfully!")
+        // history.push('/orderstatus')
     }
-
-    // async function sendOrder(){
-    //     for(let eachCart of endCart){
-    //         let newOrder = {
-    //             'user_id':userProfile.id,
-    //             'address_id':userSelectedAddress.id,
-    //             'total_price':totalPrice,
-    //             'food_id':eachCart.foodId,
-    //             'quantity':eachCart.quantity,
-    //         }
-    //         await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
-    //             headers:{
-    //                 Authorization: `Bearer ${userProfile.token}`
-    //             },
-    //         })
-    //     }
-    //     alert("Orders sent successfully!")
-    // }
 
     function backToMenu(){
         history.push('/menu')
