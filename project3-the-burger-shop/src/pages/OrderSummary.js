@@ -75,10 +75,10 @@ export default function OrderSummary() {
         // not sure if this work but let's test:
         await axios.get(`${BASE_API_URL}/checkout/checkout`, {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${userProfile.token}`
             },
             params:{
-                'cart': endCart
+                'cart': [endCart]
             }
         })
         // let newCart = {
