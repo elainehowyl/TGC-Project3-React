@@ -73,14 +73,20 @@ export default function OrderSummary() {
         //console.log(endCart)
         // checkout controller here
         // not sure if this work but let's test:
-        await axios.get(`${BASE_API_URL}/checkout/checkout`, {
-            headers:{
-                Authorization: `Bearer ${userProfile.token}`
-            },
-            params:{
-                'cart': [endCart]
-            }
-        })
+        // let response = await axios.get(`${BASE_API_URL}/checkout/checkout`, {
+        //     headers:{
+        //         Authorization: `Bearer ${userProfile.token}`
+        //     },
+        //     params:{
+        //         'cart': [endCart],
+        //         'token': userProfile.token
+        //     }
+        // })
+        //let cart = JSON.stringify(endCart)
+       // var arrStr = encodeURIComponent(JSON.stringify(myArray));
+        let cart = encodeURIComponent(JSON.stringify(endCart))
+        window.location.assign(`${BASE_API_URL}/checkout/${cart}/checkout`)
+        //window.location.assign(`${BASE_API_URL}/checkout/helloworld/checkout`)
         // let newCart = {
         //     'user_id':userProfile.id,
         //     'address_id':userSelectedAddress.id,
