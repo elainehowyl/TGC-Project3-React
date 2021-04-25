@@ -25,6 +25,7 @@ export default function OrderSummary() {
     // console.log("Fetch Cart: ", fetchCart)
 
     const BASE_API_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io/api';
+    const BASE_URL= 'https://8080-f7c0f52e-6461-4223-b83f-1be565cab8b8.ws-us03.gitpod.io';
 
     useEffect(() => {
         updateCart(fetchCart)
@@ -70,49 +71,34 @@ export default function OrderSummary() {
     }
 
     async function sendOrder(){
-        //console.log(endCart)
-        // checkout controller here
-        // not sure if this work but let's test:
-        // let response = await axios.get(`${BASE_API_URL}/checkout/checkout`, {
-        //     headers:{
-        //         Authorization: `Bearer ${userProfile.token}`
-        //     },
-        //     params:{
-        //         'cart': [endCart],
-        //         'token': userProfile.token
-        //     }
-        // })
-        //let cart = JSON.stringify(endCart)
-       // var arrStr = encodeURIComponent(JSON.stringify(myArray));
+        let newCart = {
+            'user_id':userProfile.id,
+            'address_id':userSelectedAddress.id,
+            'total_price':totalPrice,
+            'duplicate_address':JSON.stringify(userSelectedAddress),
+            'duplicate_orders':JSON.stringify(endCart),
+        }
+        let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
+            headers:{
+                Authorization: `Bearer ${userProfile.token}`
+            }
+        })
+        console.log(response.data)
+        for(let eachCart of endCart){
+            let newOrder = {
+                'user_id':userProfile.id,
+                'cart_id':response.data,
+                'food_id':eachCart.foodId,
+                'quantity':eachCart.quantity,
+            }
+            await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
+                headers:{
+                    Authorization: `Bearer ${userProfile.token}`
+                },
+            })
+        }
         let cart = encodeURIComponent(JSON.stringify(endCart))
-        window.location.assign(`${BASE_API_URL}/checkout/${cart}/checkout`)
-        //window.location.assign(`${BASE_API_URL}/checkout/helloworld/checkout`)
-        // let newCart = {
-        //     'user_id':userProfile.id,
-        //     'address_id':userSelectedAddress.id,
-        //     'total_price':totalPrice,
-        //     'duplicate_address':JSON.stringify(userSelectedAddress),
-        //     'duplicate_orders':JSON.stringify(endCart),
-        // }
-        // let response = await axios.post(`${BASE_API_URL}/cart/create`, newCart, {
-        //     headers:{
-        //         Authorization: `Bearer ${userProfile.token}`
-        //     }
-        // })
-        // console.log(response.data)
-        // for(let eachCart of endCart){
-        //     let newOrder = {
-        //         'user_id':userProfile.id,
-        //         'cart_id':response.data,
-        //         'food_id':eachCart.foodId,
-        //         'quantity':eachCart.quantity,
-        //     }
-        //     await axios.post(`${BASE_API_URL}/order/create`, newOrder, {
-        //         headers:{
-        //             Authorization: `Bearer ${userProfile.token}`
-        //         },
-        //     })
-        // }
+        window.location.assign(`${BASE_URL}/checkout/${cart}/checkout`)
         // alert("Orders sent successfully!")
         // history.push('/orderstatus')
     }
